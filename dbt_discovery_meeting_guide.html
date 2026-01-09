@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dbt Technical Assessment - Discovery Meeting Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(253, 102, 3, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        header .meta {
+            font-size: 0.95em;
+            opacity: 0.85;
+        }
+
+        nav {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            display: block;
+            padding: 18px 20px;
+            color: #fd6603;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a:hover, nav a.active {
+            background: #fff3e0;
+            border-bottom-color: #fd6603;
+        }
+
+        .nav-icon {
+            font-size: 1.2em;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin: 40px 0 30px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #fd6603;
+        }
+
+        .subsection-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin: 30px 0 20px 0;
+            padding-left: 15px;
+            border-left: 4px solid #fd6603;
+        }
+
+        .question-block {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #fd6603;
+        }
+
+        .question-block.critical {
+            border-left-color: #d32f2f;
+            background: #fff5f5;
+        }
+
+        .question-block.important {
+            border-left-color: #ff9800;
+            background: #fff8f0;
+        }
+
+        .question-title {
+            color: #fd6603;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .question-block.critical .question-title {
+            color: #d32f2f;
+        }
+
+        .question-block.important .question-title {
+            color: #ff9800;
+        }
+
+        .primary-question {
+            font-size: 1em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .followup {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-size: 0.95em;
+            color: #555;
+            border-left: 3px solid #061ee7;
+        }
+
+        .followup:before {
+            content: "→ ";
+            color: #061ee7;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .guidance-box {
+            background: #f0f4ff;
+            border-left: 4px solid #061ee7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .guidance-box strong {
+            color: #061ee7;
+        }
+
+        .template-link {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .template-link strong {
+            color: #2e7d32;
+        }
+
+        .notes-section {
+            background: #fffbf0;
+            border: 2px dashed #fd6603;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            min-height: 100px;
+        }
+
+        .notes-label {
+            font-weight: 700;
+            color: #fd6603;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, rgba(253, 102, 3, 0.05) 0%, rgba(123, 45, 228, 0.05) 100%);
+            border-left: 4px solid #fd6603;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .tip-box strong {
+            color: #fd6603;
+        }
+
+        .roles-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .role-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #fd6603;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .role-card h4 {
+            color: #fd6603;
+            margin-bottom: 8px;
+        }
+
+        .role-card p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fd6603;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox:hover {
+            background: #fff3e0;
+        }
+
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .agenda-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid #fd6603;
+        }
+
+        .agenda-card h4 {
+            color: #fd6603;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .time {
+            display: inline-block;
+            background: #fff3e0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #fd6603;
+            margin-bottom: 10px;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #fd6603;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .metric-card h5 {
+            color: #fd6603;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .metric-card p {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .section-title { font-size: 1.8em; }
+            nav a { padding: 12px 12px; font-size: 0.8em; }
+            main { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discovery Meeting Guide</h1>
+        <div class="subtitle">dbt Technical Assessment - Customer Interview Framework</div>
+        <div class="meta">
+            📊 Structured Questions | 🎯 Key Insights | 📋 Template Mapping</div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a class="nav-link active" onclick="showSection(event, 'prep')"><span class="nav-icon">📋</span> Pre-Meeting</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'executive')"><span class="nav-icon">📍</span> Context & Org</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'actual')"><span class="nav-icon">⚠️</span> Actual State</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'capabilities')"><span class="nav-icon">🔍</span> Capabilities</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'goals')"><span class="nav-icon">🎯</span> Goals & ROI</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'technical')"><span class="nav-icon">🔧</span> Technical</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'closing')"><span class="nav-icon">✅</span> Closing</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- SECTION 1: PRE-MEETING PREPARATION -->
+        <section id="prep" class="active">
+            <h2 class="section-title">📋 Pre-Meeting Preparation</h2>
+
+            <h3 class="subsection-title">Meeting Setup & Context</h3>
+            <div class="guidance-box">
+                <strong>Objective:</strong> Conduct a comprehensive discovery to understand the customer's current data platform, pain points, and alignment with dbt value proposition. This meeting should take 60-90 minutes with 2-3 stakeholders.
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Schedule this as a working session with relevant stakeholders present. Audio recording with permission helps capture details you might miss while taking notes.
+            </div>
+
+            <h3 class="subsection-title">Required Attendees</h3>
+            <div class="roles-box">
+                <div class="role-card">
+                    <h4>📊 Data Lead/Manager</h4>
+                    <p>Understands team structure, priorities, and organizational constraints. Usually the sponsor.</p>
+                </div>
+                <div class="role-card">
+                    <h4>🔧 Technical Lead</h4>
+                    <p>Can speak to current architecture, tools, pain points. Usually an engineer or architect.</p>
+                </div>
+                <div class="role-card">
+                    <h4>💼 Business Stakeholder</h4>
+                    <p>Represents business impact and priorities. Can discuss ROI and strategic goals.</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Pre-Meeting Checklist</h3>
+            <ul class="checklist">
+                <li><div class="checkbox"></div> Schedule 60-90 minute meeting with 2-3 key stakeholders</li>
+                <li><div class="checkbox"></div> Send calendar invite with agenda 3-5 days before</li>
+                <li><div class="checkbox"></div> Request recording permission via email</li>
+                <li><div class="checkbox"></div> Ask them to have system diagram or architecture doc available</li>
+                <li><div class="checkbox"></div> Prepare laptop/tablet with this guide accessible</li>
+                <li><div class="checkbox"></div> Have blank assessment template open for note-taking</li>
+                <li><div class="checkbox"></div> Print or digital version of this guide ready</li>
+                <li><div class="checkbox"></div> Have dbt.com resources bookmarked for reference</li>
+            </ul>
+
+            <h3 class="subsection-title">Meeting Agenda (90 minutes)</h3>
+            <div class="agenda-grid">
+                <div class="agenda-card">
+                    <span class="time">0-5 min</span>
+                    <h4>Welcome & Context Setting</h4>
+                    <p>Explain purpose of meeting and overview of what you'll discuss</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">5-20 min</span>
+                    <h4>Organization & Context</h4>
+                    <p>Understand their business, team, and current setup</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">20-40 min</span>
+                    <h4>Current State & Pain Points</h4>
+                    <p>Deep dive into challenges and limitations</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">40-55 min</span>
+                    <h4>Goals & Business Impact</h4>
+                    <p>Discuss objectives and expected outcomes</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">55-80 min</span>
+                    <h4>Technical & Implementation</h4>
+                    <p>Explore technical requirements and concerns</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">80-90 min</span>
+                    <h4>Next Steps & Closing</h4>
+                    <p>Summarize findings and agree on next actions</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Opening Script (30 seconds)</h3>
+            <div class="question-block">
+                <p style="font-style: italic; color: #555;">
+                    "Thanks for taking the time to meet with us. Our goal today is to understand your current data platform setup, the challenges you're facing, and your business objectives. This will help us assess how dbt and modern data stack practices could benefit your organization. I'll be taking notes and we'll create a comprehensive assessment report that we can use to develop a tailored implementation roadmap. Does that sound good?"
+                </p>
+            </div>
+
+            <h3 class="subsection-title">General Interview Tips</h3>
+            <div class="tip-box">
+                <strong>Active Listening:</strong> Take notes but maintain eye contact. Don't interrupt. Let them finish their thoughts before asking follow-ups.
+            </div>
+            <div class="tip-box">
+                <strong>Probe Deeper:</strong> When they mention a pain point, ask "Tell me more about that" or "Can you give me a specific example?" Specifics help you understand impact.
+            </div>
+            <div class="tip-box">
+                <strong>Don't Sell (Yet):</strong> Focus on understanding. You can mention dbt solutions in later conversations. Here you're gathering facts.
+            </div>
+            <div class="tip-box">
+                <strong>Be Quantitative:</strong> Where possible, ask for numbers. "How many hours per week?" "What's the team size?" "How often does this happen?" Numbers make the assessment stronger.
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Pre-Meeting Notes</div>
+                <p style="margin-bottom: 10px;">Record key background info here:</p>
+                <p>Company Name: ________________</p>
+                <p>Attendees: ________________</p>
+                <p>Industry: ________________</p>
+                <p>Key Context: ________________</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CONTEXT & ORGANIZATION -->
+        <section id="executive">
+            <h2 class="section-title">📍 Context & Organization Questions</h2>
+
+            <div class="guidance-box">
+                <strong>Goal:</strong> Build a complete picture of their organization, team structure, business goals, and data maturity level. This section populates "Context & Organization" in the template.
+            </div>
+
+            <h3 class="subsection-title">1. Organization & Business Context</h3>
+            
+            <div class="question-block critical">
+                <div class="question-title">❓ What does your company do, and how does data play a role in your business?</div>
+                <p class="primary-question">Goal: Understand the business and how data is strategic</p>
+                <div class="followup">What are your top 2-3 business priorities for this year?</div>
+                <div class="followup">How is data/analytics viewed in the organization - critical infrastructure or nice-to-have?</div>
+                <div class="followup">Who are the primary consumers of data in your business?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Business Objectives, Industry context in "Context" section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">2. Data Team Structure</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ Can you describe your data team - size, roles, experience level?</div>
+                <p class="primary-question">Goal: Understand team capacity and skill mix</p>
+                <div class="followup">How many people total? Break down by role (engineers, analysts, architects)?</div>
+                <div class="followup">What are their technical backgrounds? SQL experience? Cloud platforms?</div>
+                <div class="followup">Are there gaps in the team - skills you're struggling to find?</div>
+                <div class="followup">How is the team organized? Separate data eng/analytics or mixed?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Team Size, Organizational Structure in "Context" section
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">❓ How do teams collaborate on data projects?</div>
+                <p class="primary-question">Goal: Understand collaboration patterns and potential friction</p>
+                <div class="followup">How are requirements gathered? Formal tickets or ad-hoc requests?</div>
+                <div class="followup">Do data engineers and analysts work closely or in silos?</div>
+                <div class="followup">How do business stakeholders request new data or metrics?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Process description in "Future State" section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Data Maturity & Readiness</h3>
+
+            <div class="question-block important">
+                <div class="question-title">❓ How would you describe your data platform maturity today?</div>
+                <p class="primary-question">Goal: Gauge readiness for modern data stack practices</p>
+                <div class="followup">Do you have a centralized data warehouse or data lake?</div>
+                <div class="followup">How long have you been running this platform?</div>
+                <div class="followup">What data governance practices do you have in place?</div>
+                <div class="followup">How much of your transformation logic is code vs UI-based tools?</div>
+                <div class="guidance-box">
+                    <strong>Assessment Scale:</strong> Emerging (no warehouse) → Growing (warehouse with basic ETL) → Mature (codified practices, governance)
+                </div>
+            </div>
+
+            <h3 class="subsection-title">4. Key Projects & Use Cases</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ What are your 2-3 most critical data projects right now?</div>
+                <p class="primary-question">Goal: Identify best candidates for dbt pilot</p>
+                <div class="followup">What data flows are most essential to your business?</div>
+                <div class="followup">Which projects have the tightest deadlines or highest stakeholder pressure?</div>
+                <div class="followup">What transformation logic sits in [current tool]? How complex?</div>
+                <div class="followup">Are there data quality issues with these projects?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Critical Projects & Stakeholders" card in Context section
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Context Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Record findings about org structure, team, maturity, and key projects</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ACTUAL STATE & PAIN POINTS -->
+        <section id="actual">
+            <h2 class="section-title">⚠️ Actual State & Pain Points</h2>
+
+            <div class="guidance-box">
+                <strong>Goal:</strong> Identify specific, quantifiable pain points and challenges. This is the core of the assessment and populates the "Actual State & Pains" section. Focus on getting concrete examples and numbers.
+            </div>
+
+            <h3 class="subsection-title">1. Data Quality & Testing</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ How confident are your stakeholders in your data quality?</div>
+                <p class="primary-question">Goal: Understand testing and quality practices</p>
+                <div class="followup">Do you have formal data quality tests? How are they executed?</div>
+                <div class="followup">How often do you discover data quality issues in production?</div>
+                <div class="followup">What's the impact when bad data reaches end users? Examples?</div>
+                <div class="followup">Do some teams build Excel workarounds because they don't trust the data?</div>
+                <div class="followup">How long does it take to fix a data quality issue once discovered?</div>
+                <div class="guidance-box">
+                    <strong>Metrics to capture:</strong> % bugs found in prod vs pre-prod, hours/week spent on data quality, number of reconciliation issues
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Data Quality & Testing" pain point section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">2. Troubleshooting & Debugging</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ When something breaks in your data pipeline, how long does it take to fix?</div>
+                <p class="primary-question">Goal: Quantify troubleshooting pain</p>
+                <div class="followup">Walk me through your last production issue. How long to identify root cause?</div>
+                <div class="followup">Can you see data lineage - what feeds what? How easily?</div>
+                <div class="followup">Do you have documentation of the transformation logic? How useful is it?</div>
+                <div class="followup">Who typically solves these issues? How disruptive are they?</div>
+                <div class="tip-box">
+                    <strong>💡 Try this:</strong> "Tell me about the last production incident. How long from detection to resolution? What made it hard?"
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Troubleshooting & Debugging" pain point section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Development Velocity</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How quickly can you deliver new data features or metrics to business stakeholders?</div>
+                <p class="primary-question">Goal: Measure velocity and cycle time</p>
+                <div class="followup">From request to delivery, how many weeks typically?</div>
+                <div class="followup">What slows down feature delivery? Bottlenecks?</div>
+                <div class="followup">Are there differences in velocity for simple vs complex requests?</div>
+                <div class="followup">Do business users have to wait for a data person for any analysis?</div>
+                <div class="followup">Is there a backlog of requests? How long is it?</div>
+                <div class="guidance-box">
+                    <strong>Metrics to capture:</strong> Average weeks per feature, backlog size, % of urgent vs planned work
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Development Velocity & Agility" pain point
+                </div>
+            </div>
+
+            <h3 class="subsection-title">4. Documentation & Knowledge Management</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How do you document your data transformations and maintain that documentation?</div>
+                <p class="primary-question">Goal: Understand documentation challenges</p>
+                <div class="followup">Where is documentation stored? Wiki? Excel? In tool itself?</div>
+                <div class="followup">Is it kept up to date? How often is it out of sync with reality?</div>
+                <div class="followup">Can new team members understand the data pipelines from existing documentation?</div>
+                <div class="followup">How much time is spent on onboarding new data people due to poor documentation?</div>
+                <div class="followup">Is there a data dictionary? Who maintains it?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Documentation & Knowledge Management" pain point
+                </div>
+            </div>
+
+            <h3 class="subsection-title">5. Cost & Resource Optimization</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ What are your data platform costs, and how do they scale?</div>
+                <p class="primary-question">Goal: Understand cost structure and optimization opportunities</p>
+                <div class="followup">What's your annual spend on data warehouse/cloud services?</div>
+                <div class="followup">How much is that growing year-over-year?</div>
+                <div class="followup">Do you know what's driving costs? Compute, storage, unused resources?</div>
+                <div class="followup">Are there redundant or unused data models running that consume cost?</div>
+                <div class="followup">How much effort goes into cost optimization? Is it reactive or proactive?</div>
+                <div class="guidance-box">
+                    <strong>Metrics to capture:</strong> Annual cloud spend, % growth, cost per query, wasted resources
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Cost Management & Optimization" pain point
+                </div>
+            </div>
+
+            <h3 class="subsection-title">6. Current Tool Pain Points</h3>
+
+            <div class="question-block important">
+                <div class="question-title">❓ What frustrates you most about your current ETL/transformation tool?</div>
+                <p class="primary-question">Goal: Understand specific limitations of current platform</p>
+                <div class="followup">Is the UI-based approach (if applicable) limiting or empowering?</div>
+                <div class="followup">How hard is it to do version control and code review?</div>
+                <div class="followup">Can you test transformation logic before deploying?</div>
+                <div class="followup">Does the tool provide data lineage visualization?</div>
+                <div class="followup">What would be different in an ideal world?</div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Actual State Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Record specific pain points with numbers - these are critical for the assessment</p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CAPABILITIES & READINESS -->
+        <section id="capabilities">
+            <h2 class="section-title">🔍 Team Capabilities & Technical Readiness</h2>
+
+            <div class="guidance-box">
+                <strong>Goal:</strong> Assess technical readiness, SQL skills, cloud familiarity, and capacity for learning. This helps determine implementation approach and training needs.
+            </div>
+
+            <h3 class="subsection-title">1. SQL & Coding Skills</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How strong is your team's SQL knowledge?</div>
+                <p class="primary-question">Goal: Assess SQL foundation for dbt adoption</p>
+                <div class="followup">Who can write complex SQL? Who can debug SQL queries?</div>
+                <div class="followup">Is SQL taught/encouraged in your organization?</div>
+                <div class="followup">Have you considered moving away from UI tools to SQL-based approaches before?</div>
+                <div class="followup">Are there team members actively building expertise or are they stagnating?</div>
+                <div class="guidance-box">
+                    <strong>Assessment:</strong> Strong SQL foundation = faster dbt adoption. No SQL = need more training/mentoring
+                </div>
+            </div>
+
+            <h3 class="subsection-title">2. Git & Version Control</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ Does your team use Git or other version control?</div>
+                <p class="primary-question">Goal: Understand version control maturity</p>
+                <div class="followup">Is Git/version control used for data code?</div>
+                <div class="followup">Are there code review processes in place?</div>
+                <div class="followup">Have people done pull requests, branching, merging?</div>
+                <div class="followup">Would adopting Git workflows for data be new territory?</div>
+                <div class="tip-box">
+                    <strong>💡 Note:</strong> dbt requires Git, so this is a key capability. If not present, plan training.
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Cloud Data Warehouse Experience</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ Which cloud data warehouse do you use (or plan to use)?</div>
+                <p class="primary-question">Goal: Understand warehouse knowledge and dbt compatibility</p>
+                <div class="followup">Snowflake, BigQuery, Redshift, or another platform?</div>
+                <div class="followup">How long have you been on this platform?</div>
+                <div class="followup">Are you comfortable with warehouse features like clustering, materialized views?</div>
+                <div class="followup">Is there appetite to migrate to a different warehouse?</div>
+                <div class="guidance-box">
+                    <strong>dbt Support:</strong> dbt works with Snowflake, BigQuery, Redshift, Postgres, etc. Check compatibility.
+                </div>
+            </div>
+
+            <h3 class="subsection-title">4. Learning Orientation & Change Readiness</h3>
+
+            <div class="question-block important">
+                <div class="question-title">❓ How does your team respond to new tools and methodologies?</div>
+                <p class="primary-question">Goal: Gauge willingness to adopt new practices</p>
+                <div class="followup">Have you successfully adopted new tools in the past? What worked?</div>
+                <div class="followup">Is there resistance to change or enthusiasm for improvements?</div>
+                <div class="followup">Do people have time for training and learning, or is it all firefighting?</div>
+                <div class="followup">Are there specific people who champion improvements?</div>
+                <div class="tip-box">
+                    <strong>💡 Insight:</strong> Cultural fit is as important as technical fit. Assess sponsorship and enthusiasm.
+                </div>
+            </div>
+
+            <h3 class="subsection-title">5. Existing Code & Transformation Logic</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ How much of your transformation logic is code vs UI-based, and how much is documented?</div>
+                <p class="primary-question">Goal: Understand migration scope</p>
+                <div class="followup">Can you show me an example of a complex transformation?</div>
+                <div class="followup">Is the logic in [current tool] or some stored procedures/SQL?</div>
+                <div class="followup">How many transformation jobs/pipelines do you have total?</div>
+                <div class="followup">Are there hidden dependencies or manual steps that aren't documented?</div>
+                <div class="guidance-box">
+                    <strong>Metrics to capture:</strong> # of transformation jobs, complexity level, % documented, code vs UI split
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Capabilities Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Record SQL skills, Git experience, cloud knowledge, and readiness level</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: GOALS & ROI -->
+        <section id="goals">
+            <h2 class="section-title">🎯 Business Goals & ROI Expectations</h2>
+
+            <div class="guidance-box">
+                <strong>Goal:</strong> Understand business objectives, desired outcomes, and ROI expectations. This populates the "Executive Summary" and "ROI Assessment" sections of the template.
+            </div>
+
+            <h3 class="subsection-title">1. Strategic Data Goals</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ What would success look like for your data function in 12 months?</div>
+                <p class="primary-question">Goal: Understand strategic vision</p>
+                <div class="followup">What's the #1 thing you want to improve?</div>
+                <div class="followup">Are there business metrics tied to data/analytics performance?</div>
+                <div class="followup">What's the biggest opportunity you're missing with current limitations?</div>
+                <div class="followup">How would you measure success?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Business Objectives, Key Metrics in "Executive Summary"
+                </div>
+            </div>
+
+            <h3 class="subsection-title">2. Productivity & Efficiency Goals</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How much faster would you like to deliver features?</div>
+                <p class="primary-question">Goal: Quantify velocity improvement expectations</p>
+                <div class="followup">If you could cut feature delivery time in half, what would that enable?</div>
+                <div class="followup">How much of your team's time is spent on troubleshooting vs building?</div>
+                <div class="followup">What's the impact on the business if you're 50% faster?</div>
+                <div class="guidance-box">
+                    <strong>Target metrics:</strong> 2-3x faster delivery, 60% less troubleshooting time, faster onboarding
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Productivity Metrics" in "ROI Assessment"
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Quality & Risk Reduction</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ What's the cost of your current data quality issues?</div>
+                <p class="primary-question">Goal: Quantify quality improvement value</p>
+                <div class="followup">How often do bad data issues reach business stakeholders?</div>
+                <div class="followup">What's the business impact when that happens?</div>
+                <div class="followup">How much time is spent on data validation and reconciliation?</div>
+                <div class="followup">Are there metrics tracked on data quality/reliability?</div>
+                <div class="guidance-box">
+                    <strong>Value capture:</strong> Bug prevention, reduced rework, stakeholder confidence
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Financial Impact" in "ROI Assessment"
+                </div>
+            </div>
+
+            <h3 class="subsection-title">4. Cost Optimization Goals</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ What's your appetite for optimizing data platform costs?</div>
+                <p class="primary-question">Goal: Understand cost savings expectations</p>
+                <div class="followup">Is cost reduction a goal or nice-to-have?</div>
+                <div class="followup">Do you have budget targets you need to hit?</div>
+                <div class="followup">What percentage reduction would be meaningful? (10%? 25%? 50%?)</div>
+                <div class="followup">Are there specific cost categories you're focused on?</div>
+                <div class="guidance-box">
+                    <strong>dbt value:</strong> State-aware orchestration, lineage visibility, unused model detection = 30-50% cost savings typical
+                </div>
+            </div>
+
+            <h3 class="subsection-title">5. Timeline & Budget</h3>
+
+            <div class="question-block important">
+                <div class="question-title">❓ What's your timeline for improvement, and is there budget allocated?</div>
+                <p class="primary-question">Goal: Understand investment appetite and urgency</p>
+                <div class="followup">When do you need to see results? Q2? Q3?</div>
+                <div class="followup">Is there budget already allocated or would this need approval?</div>
+                <div class="followup">What's the decision-making process? Who has final approval?</div>
+                <div class="followup">Are there other projects competing for resources?</div>
+                <div class="tip-box">
+                    <strong>💡 Note:</strong> Understand budget authority and timeline - these inform the roadmap section of assessment
+                </div>
+            </div>
+
+            <h3 class="subsection-title">6. Business Metrics to Track</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ What specific metrics should we use to measure success of this transformation?</div>
+                <p class="primary-question">Goal: Define success criteria</p>
+                <div class="followup">How will you measure faster delivery? Features per sprint?</div>
+                <div class="followup">How will you measure data quality improvement?</div>
+                <div class="followup">What's the baseline today that we'll compare to?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> "Success Criteria & Metrics" in "Roadmap" section
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Goals & ROI Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Record strategic goals, timelines, budget constraints, and success metrics</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6: TECHNICAL QUESTIONS -->
+        <section id="technical">
+            <h2 class="section-title">🔧 Technical & Implementation Questions</h2>
+
+            <div class="guidance-box">
+                <strong>Goal:</strong> Understand technical architecture, implementation constraints, and integration requirements. This informs the "dbt Solution" and "Roadmap" sections.
+            </div>
+
+            <h3 class="subsection-title">1. Current Architecture & Tools</h3>
+
+            <div class="question-block critical">
+                <div class="question-title">❓ Can you walk me through your current data architecture?</div>
+                <p class="primary-question">Goal: Understand full tech stack</p>
+                <div class="followup">What's the source of your data? (APIs, databases, files?)</div>
+                <div class="followup">How does data get ingested? (ETL tool, custom scripts, CDC?)</div>
+                <div class="followup">What transformation tool(s) do you use? (Matillion, Talend, custom SQL?)</div>
+                <div class="followup">What's your data warehouse? (Snowflake, BigQuery, Redshift?)</div>
+                <div class="followup">What BI/analytics tools consume the data?</div>
+                <div class="followup">Is there an orchestration tool? (Airflow, Prefect, native scheduler?)</div>
+                <div class="tip-box">
+                    <strong>💡 Action:</strong> Ask them to draw or show you a diagram. Visual helps immensely.
+                </div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Current data stack in "Context" section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">2. dbt Compatibility & Fit</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ Are there any constraints on what tools you can adopt?</div>
+                <p class="primary-question">Goal: Understand governance, licensing, or architectural constraints</p>
+                <div class="followup">Are there vendor/tool approvals needed? Procurement process?</div>
+                <div class="followup">Are there restrictions on open source software?</div>
+                <div class="followup">Do you need on-premise, cloud-only, or hybrid?</div>
+                <div class="followup">Are there data residency or security requirements that matter?</div>
+                <div class="guidance-box">
+                    <strong>dbt Compatibility:</strong> dbt Cloud (cloud), dbt Core (open source self-managed), both support major data warehouses
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Integration Points</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How does your data platform integrate with the rest of your tech stack?</div>
+                <p class="primary-question">Goal: Understand dependencies and integration requirements</p>
+                <div class="followup">Do you have data catalogs or metadata tools? (Collibra, Alation, etc.)</div>
+                <div class="followup">Do you use CI/CD tools? (Jenkins, GitLab CI, GitHub Actions?)</div>
+                <div class="followup">Are there monitoring/observability tools you want to integrate with?</div>
+                <div class="followup">Do you have identity management requirements? (SAML, OAuth?)</div>
+                <div class="guidance-box">
+                    <strong>dbt Integrations:</strong> Works with most major data catalogs, CI/CD platforms, and observability tools
+                </div>
+            </div>
+
+            <h3 class="subsection-title">4. Data Volume & Scale</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ What's the scale of data you're working with?</div>
+                <p class="primary-question">Goal: Understand performance requirements</p>
+                <div class="followup">How much data in your warehouse? GB? TB? PB?</div>
+                <div class="followup">How many tables? How many daily/hourly updates?</div>
+                <div class="followup">What's your largest transformation? Rows processed?</div>
+                <div class="followup">Are there real-time requirements or is batch okay?</div>
+                <div class="guidance-box">
+                    <strong>dbt Capability:</strong> Handles any scale of data. Performance depends on warehouse, not dbt.
+                </div>
+            </div>
+
+            <h3 class="subsection-title">5. Implementation Approach Preferences</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ How would you prefer to approach implementation?</div>
+                <p class="primary-question">Goal: Understand engagement model preferences</p>
+                <div class="followup">Would you prefer hands-on implementation support, or mostly self-service?</div>
+                <div class="followup">Do you have bandwidth for team training during implementation?</div>
+                <div class="followup">Would you like to start with a pilot or full migration?</div>
+                <div class="followup">How much consulting support would be valuable?</div>
+                <div class="template-link">
+                    <strong>→ Template field:</strong> Implementation approach in "Roadmap" section
+                </div>
+            </div>
+
+            <h3 class="subsection-title">6. Risks & Concerns</h3>
+
+            <div class="question-block important">
+                <div class="question-title">❓ What concerns do you have about adopting dbt or making this change?</div>
+                <p class="primary-question">Goal: Understand potential blockers and concerns</p>
+                <div class="followup">Risk of disrupting current operations?</div>
+                <div class="followup">Worried about team adoption or learning curve?</div>
+                <div class="followup">Concerns about support or vendor lock-in?</div>
+                <div class="followup">Migration risks - how to safely move off current tool?</div>
+                <div class="tip-box">
+                    <strong>💡 Listen closely:</strong> These are real concerns. Address them honestly in the proposal.
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Technical Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Record architecture details, constraints, and implementation preferences</p>
+            </div>
+        </section>
+
+        <!-- SECTION 7: CLOSING & NEXT STEPS -->
+        <section id="closing">
+            <h2 class="section-title">✅ Closing & Next Steps</h2>
+
+            <h3 class="subsection-title">Meeting Wrap-Up Script (5 minutes)</h3>
+            
+            <div class="question-block">
+                <p style="font-style: italic; color: #555; margin-bottom: 15px;">
+                    "Thanks so much for the detailed conversation. We've covered a lot of ground. Before we wrap, let me recap what I heard and get your feedback:"
+                </p>
+                <ul style="margin-left: 20px;">
+                    <li>Your main pain points are: [Summary of 1-3 biggest issues]</li>
+                    <li>Your team has strong [strengths] and might need support with [gaps]</li>
+                    <li>Your top goals are: [Main objectives]</li>
+                    <li>Key constraints are: [Timeline, budget, technical]</li>
+                </ul>
+                <p style="font-style: italic; color: #555; margin-top: 15px;">
+                    "Do I have that right? Is there anything I've misunderstood or anything else important I should know?"
+                </p>
+            </div>
+
+            <h3 class="subsection-title">Immediate Next Steps</h3>
+
+            <div class="question-block">
+                <div class="question-title">❓ Finalize Details</div>
+                <p class="primary-question">Ask these final clarifying questions:</p>
+                <div class="followup">Can I follow up with [specific person] if I have clarifying questions?</div>
+                <div class="followup">Can you share any architecture diagrams or current documentation?</div>
+                <div class="followup">Would it be helpful to schedule a technical deep-dive with your engineers?</div>
+            </div>
+
+            <h3 class="subsection-title">What You'll Deliver & Timeline</h3>
+
+            <div class="question-block">
+                <p style="margin-bottom: 15px;">
+                    "Here's what happens next:"
+                </p>
+                <ul style="margin-left: 20px;">
+                    <li>I'll synthesize everything we discussed into a comprehensive Technical Assessment document</li>
+                    <li>This will include findings across organization, current state, and opportunities</li>
+                    <li>We'll include ROI projections and a phased implementation roadmap</li>
+                    <li>I'll follow up with you by [specific date] with the draft for review</li>
+                    <li>We can schedule a debrief call to walk through findings and discuss next steps</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">Key Metrics Checklist</h3>
+
+            <p style="margin-bottom: 20px; color: #666;">Before you leave the meeting, make sure you have captured:</p>
+
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <h5>Timing Metrics</h5>
+                    <p>• Feature delivery time<br>• Troubleshooting time<br>• Onboarding duration</p>
+                </div>
+                <div class="metric-card">
+                    <h5>Quality Metrics</h5>
+                    <p>• % bugs in prod<br>• Quality issue frequency<br>• Data downtime hours</p>
+                </div>
+                <div class="metric-card">
+                    <h5>Financial Metrics</h5>
+                    <p>• Annual cloud spend<br>• Cost growth rate<br>• Team cost</p>
+                </div>
+                <div class="metric-card">
+                    <h5>Operational Metrics</h5>
+                    <p>• Team size<br>• # of pipelines<br>• Backlog size</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Post-Meeting Actions (48 hours)</h3>
+
+            <ul class="checklist">
+                <li><div class="checkbox"></div> Send thank you email with key points recap</li>
+                <li><div class="checkbox"></div> Send any resources/links discussed</li>
+                <li><div class="checkbox"></div> Request any artifacts they promised (diagrams, docs)</li>
+                <li><div class="checkbox"></div> Schedule follow-up calls with technical team if needed</li>
+                <li><div class="checkbox"></div> Begin drafting assessment document</li>
+            </ul>
+
+            <h3 class="subsection-title">Follow-Up Email Template</h3>
+
+            <div class="question-block" style="background: #f0f4ff;">
+                <p style="font-size: 0.9em; color: #555; margin-bottom: 15px;">
+                    <strong>Subject: Thank You - [Company] Technical Assessment Discovery</strong>
+                </p>
+                <p style="font-size: 0.9em; color: #555; margin-bottom: 10px;">
+                    Hi [Attendee Names],<br><br>
+                    Thanks for your time and thoughtful discussion today. It was great to learn about your data platform and priorities. To recap, I heard that your main opportunities are around:
+                </p>
+                <ul style="margin-left: 20px; font-size: 0.9em; color: #555; margin-bottom: 10px;">
+                    <li>[Pain point 1]</li>
+                    <li>[Pain point 2]</li>
+                    <li>[Pain point 3]</li>
+                </ul>
+                <p style="font-size: 0.9em; color: #555; margin-bottom: 10px;">
+                    And your key goals are to [Goal 1] and [Goal 2] by [Timeline].
+                </p>
+                <p style="font-size: 0.9em; color: #555; margin-bottom: 10px;">
+                    I'll be synthesizing everything into a Technical Assessment document. Can you share the architecture diagrams and any additional documentation that would be helpful? I'll follow up with the draft assessment by [Date].
+                </p>
+                <p style="font-size: 0.9em; color: #555;">
+                    In the meantime, here are some dbt resources that might be interesting:<br>
+                    • dbt Documentation: https://docs.getdbt.com<br>
+                    • Case Studies: https://www.getdbt.com/case-studies
+                </p>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-label">📝 Closing Notes</div>
+                <p style="color: #999; font-size: 0.9em;">Final thoughts, action items, and follow-up details</p>
+            </div>
+
+            <h3 class="subsection-title">Assessment Documentation Process</h3>
+
+            <div class="agenda-grid">
+                <div class="agenda-card">
+                    <span class="time">Day 1-2</span>
+                    <h4>Synthesize Notes</h4>
+                    <p>Review your notes and recordings. Fill in the template sections with concrete information.</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">Day 2-3</span>
+                    <h4>Draft Assessment</h4>
+                    <p>Write comprehensive assessment with findings, analysis, and recommendations.</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">Day 3-4</span>
+                    <h4>Add Financials</h4>
+                    <p>Calculate ROI estimates and cost savings based on metrics captured.</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">Day 4-5</span>
+                    <h4>Review & Polish</h4>
+                    <p>Proofread, fact-check against customer data, ensure consistency.</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">Day 5</span>
+                    <h4>Send to Customer</h4>
+                    <p>Share draft for review and feedback. Schedule debrief call.</p>
+                </div>
+                <div class="agenda-card">
+                    <span class="time">Day 7-10</span>
+                    <h4>Debrief & Roadmap</h4>
+                    <p>Present findings, discuss recommendations, align on next steps and roadmap.</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 Final Tip:</strong> The assessment is not just a document - it's the foundation for your entire relationship with the customer. Get the details right, quantify the opportunity, and present a credible roadmap for success.
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showSection(event, sectionId) {
+            event.preventDefault();
+            
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+                event.target.closest('a').classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                const navLinks = document.querySelectorAll('nav a');
+                const activeLink = document.querySelector('nav a.active');
+                let currentIndex = Array.from(navLinks).indexOf(activeLink);
+                
+                if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % navLinks.length;
+                } else {
+                    currentIndex = (currentIndex - 1 + navLinks.length) % navLinks.length;
+                }
+                
+                navLinks[currentIndex].click();
+            }
+        });
+    </script>
+</body>
+</html>

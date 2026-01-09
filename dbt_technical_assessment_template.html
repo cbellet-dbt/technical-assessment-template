@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Technical Assessment & dbt Evaluation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(253, 102, 3, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        header .meta {
+            font-size: 0.95em;
+            opacity: 0.85;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            display: block;
+            padding: 18px 20px;
+            color: #fd6603;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-icon {
+            font-size: 1.2em;
+            display: inline-block;
+        }
+
+        nav a:hover, nav a.active {
+            background: #fff3e0;
+            border-bottom-color: #fd6603;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            padding: 40px;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin: 40px 0 30px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #fd6603;
+        }
+
+        .subsection-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin: 30px 0 20px 0;
+            padding-left: 15px;
+            border-left: 4px solid #fd6603;
+        }
+
+        /* CARDS */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: #fd6603;
+        }
+
+        .card h3 {
+            color: #fd6603;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .card p {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* ISSUE BOXES */
+        .issue-box {
+            background: #fff3e0;
+            border-left: 4px solid #fd6603;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            color: #333;
+        }
+
+        .issue-box.critical {
+            background: #fce4ec;
+            border-left-color: #d32f2f;
+            color: #c62828;
+        }
+
+        /* COMPARISON */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .before, .after {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .before h4 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .after h4 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-icon {
+            font-size: 1.5em;
+        }
+
+        /* TABLES */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        /* HIGHLIGHT BOXES */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(253, 102, 3, 0.05) 0%, rgba(123, 45, 228, 0.05) 100%);
+            border-left: 4px solid #fd6603;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h4 {
+            color: #fd6603;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        /* ROI METRICS */
+        .roi-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .roi-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #fd6603;
+        }
+
+        .roi-card .value {
+            font-size: 2.2em;
+            color: #fd6603;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .roi-card .label {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 30px;
+            width: 2px;
+            height: 100%;
+            background: #fd6603;
+        }
+
+        .timeline-item:last-child:before {
+            display: none;
+        }
+
+        .timeline-dot {
+            width: 32px;
+            height: 32px;
+            background: #fd6603;
+            border-radius: 50%;
+            margin-right: 30px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .timeline-content h4 {
+            color: #fd6603;
+            margin-bottom: 8px;
+        }
+
+        /* CASE STUDY BOX */
+        .case-study {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            border-left: 4px solid #061ee7;
+        }
+
+        .case-study h4 {
+            color: #061ee7;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .case-study .metric-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .metric-item {
+            color: #666;
+        }
+
+        .metric-item .value {
+            color: #fd6603;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 102, 3, 0.3);
+        }
+
+        /* LISTS */
+        ul {
+            margin-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            header .subtitle { font-size: 1em; }
+            .section-title { font-size: 1.8em; }
+            nav a { padding: 12px 12px; font-size: 0.8em; }
+            main { padding: 20px; }
+            .comparison-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Technical Assessment</h1>
+        <div class="subtitle">dbt Evaluation & Modern Data Platform</div>
+        <div class="meta">
+            <span>📊 Comprehensive Analysis</span>
+            <span>🔧 dbt Labs</span>
+            <span>📅 [Your Date]</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a class="nav-link active" onclick="showSection(event, 'executive')"><span class="nav-icon">📋</span> Executive</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'context')"><span class="nav-icon">📍</span> Context</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'actual')"><span class="nav-icon">⚠️</span> Actual State</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'future')"><span class="nav-icon">🚀</span> Future State</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'solution')"><span class="nav-icon">🔧</span> Solution</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'roi')"><span class="nav-icon">💰</span> ROI</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'cases')"><span class="nav-icon">📚</span> Cases</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'roadmap')"><span class="nav-icon">🗺️</span> Roadmap</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- SECTION 1: EXECUTIVE SUMMARY -->
+        <section id="executive" class="active">
+            <h2 class="section-title">📋 Executive Summary</h2>
+
+            <div class="highlight-box">
+                <h4>Key Findings</h4>
+                <p>This assessment evaluates [Company Name]'s data platform against modern data stack best practices and identifies opportunities for transformation through dbt adoption.</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>💡 Opportunity</h3>
+                    <p>Current platform limitations impacting data velocity, quality, and team productivity. Opportunity for 2-3x improvement in feature delivery speed.</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Solution</h3>
+                    <p>Adopt modern data stack centered on dbt for code-based transformations with built-in testing, documentation, and analytics engineering practices.</p>
+                </div>
+                <div class="card">
+                    <h3>💰 Business Impact</h3>
+                    <p>Estimated ROI of [X]% within 12 months through improved efficiency, reduced operational costs, and faster time-to-insight.</p>
+                </div>
+            </div>
+
+            <div class="roi-metrics">
+                <div class="roi-card">
+                    <div class="label">Estimated Cost Savings</div>
+                    <div class="value">[Value]</div>
+                    <div class="label">per year</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Productivity Improvement</div>
+                    <div class="value">[X]%</div>
+                    <div class="label">delivery speed</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Time to Value</div>
+                    <div class="value">[Months]</div>
+                    <div class="label">implementation</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Risk Mitigation</div>
+                    <div class="value">High</div>
+                    <div class="label">data quality</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Recommendation</h4>
+                <p>Proceed with dbt adoption through a phased approach: Foundation Phase (3 months) → Scaling Phase (3-6 months) → Advanced Analytics Phase (6-12 months)</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CONTEXT -->
+        <section id="context">
+            <h2 class="section-title">📍 Context & Organization</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🏢 Organization</h3>
+                    <p><strong>Team Size:</strong> [X] data professionals</p>
+                    <p><strong>Data Maturity:</strong> [Level - Emerging/Growing/Mature]</p>
+                    <p><strong>Key Challenge:</strong> [Primary organizational challenge]</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Current Data Stack</h3>
+                    <p><strong>Data Warehouse:</strong> [Snowflake/BigQuery/Redshift]</p>
+                    <p><strong>ETL/Orchestration:</strong> [Current tool]</p>
+                    <p><strong>BI Tools:</strong> [Current tools]</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Business Objectives</h3>
+                    <p><strong>Primary Goal:</strong> [Main business objective]</p>
+                    <p><strong>Key Metrics:</strong> [Metrics to optimize]</p>
+                    <p><strong>Timeline:</strong> [Implementation horizon]</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Critical Projects & Stakeholders</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Project 1: [Name]</h3>
+                    <p><strong>Scope:</strong> [Description]</p>
+                    <p><strong>Stakeholders:</strong> [Teams involved]</p>
+                    <p><strong>Current Pain:</strong> [Specific challenge]</p>
+                </div>
+                <div class="card">
+                    <h3>Project 2: [Name]</h3>
+                    <p><strong>Scope:</strong> [Description]</p>
+                    <p><strong>Stakeholders:</strong> [Teams involved]</p>
+                    <p><strong>Current Pain:</strong> [Specific challenge]</p>
+                </div>
+                <div class="card">
+                    <h3>Project 3: [Name]</h3>
+                    <p><strong>Scope:</strong> [Description]</p>
+                    <p><strong>Stakeholders:</strong> [Teams involved]</p>
+                    <p><strong>Current Pain:</strong> [Specific challenge]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ACTUAL STATE & PAINS -->
+        <section id="actual">
+            <h2 class="section-title">⚠️ Actual State & Key Pain Points</h2>
+
+            <h3 class="subsection-title">1️⃣ Data Quality & Testing</h3>
+            <div class="issue-box critical">
+                <strong>Problem:</strong> [Describe quality issues]<br>
+                <strong>Impact:</strong> [Business consequences]<br>
+                <strong>Root Cause:</strong> [Why this happens]
+            </div>
+
+            <h3 class="subsection-title">2️⃣ Troubleshooting & Debugging</h3>
+            <div class="issue-box critical">
+                <strong>Problem:</strong> [Describe debugging challenges]<br>
+                <strong>Impact:</strong> [Time spent, business impact]<br>
+                <strong>Root Cause:</strong> [Why this happens]
+            </div>
+
+            <h3 class="subsection-title">3️⃣ Development Velocity & Agility</h3>
+            <div class="issue-box">
+                <strong>Challenge:</strong> [Describe velocity constraints]<br>
+                <strong>Limitation:</strong> [What prevents faster delivery]<br>
+                <strong>Example:</strong> [Specific scenario]
+            </div>
+
+            <h3 class="subsection-title">4️⃣ Documentation & Knowledge Management</h3>
+            <div class="issue-box">
+                <strong>Problem:</strong> [Describe documentation gaps]<br>
+                <strong>Impact:</strong> [Knowledge silos, onboarding issues]<br>
+                <strong>Current Approach:</strong> [How documentation is managed today]
+            </div>
+
+            <h3 class="subsection-title">5️⃣ Cost Management & Optimization</h3>
+            <div class="issue-box">
+                <strong>Challenge:</strong> [Describe cost issues]<br>
+                <strong>Root Cause:</strong> [Why costs are high]<br>
+                <strong>Opportunity:</strong> [Potential savings]
+            </div>
+
+            <h3 class="subsection-title">Current State vs. Target State</h3>
+            <div class="comparison-container">
+                <div class="before">
+                    <h4>❌ Today</h4>
+                    <div class="metric">
+                        <span class="metric-icon">⏱️</span>
+                        <span><strong>Troubleshooting:</strong> [Time required]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">🧪</span>
+                        <span><strong>Testing:</strong> [Current approach]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">📚</span>
+                        <span><strong>Documentation:</strong> [State]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">💸</span>
+                        <span><strong>Costs:</strong> [Cost status]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">🚀</span>
+                        <span><strong>Delivery Velocity:</strong> [Speed]</span>
+                    </div>
+                </div>
+
+                <div class="after">
+                    <h4>✅ With dbt</h4>
+                    <div class="metric">
+                        <span class="metric-icon">⚡</span>
+                        <span><strong>Troubleshooting:</strong> [Target time]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">✓</span>
+                        <span><strong>Testing:</strong> [Target approach]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">📖</span>
+                        <span><strong>Documentation:</strong> [Target state]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">💰</span>
+                        <span><strong>Costs:</strong> [Cost reduction]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">🎯</span>
+                        <span><strong>Delivery Velocity:</strong> [Target speed]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FUTURE STATE -->
+        <section id="future">
+            <h2 class="section-title">🚀 Future State with dbt</h2>
+
+            <h3 class="subsection-title">Proposed Modern Data Architecture</h3>
+            <div class="card-grid">
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>1️⃣ Sources & Ingestion</h3>
+                    <p>Multiple data sources ingested with [tool]. Raw data staged in Bronze layer with data lineage tracking.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>2️⃣ Transformation with dbt</h3>
+                    <p>SQL-based transformations with version control, automated testing, and documentation. Clear Silver (cleansed) and Gold (business-ready) layers.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>3️⃣ Governance & Quality</h3>
+                    <p>Built-in testing framework, data contracts, and automatic documentation ensure data quality at every stage.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>4️⃣ Analytics & Insights</h3>
+                    <p>Semantic layer enables business users to explore data with confidence. Self-service analytics with governed metrics.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>5️⃣ Orchestration</h3>
+                    <p>Smart scheduling and orchestration with dbt Cloud ensuring optimal resource utilization and cost efficiency.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3>6️⃣ Observability & Monitoring</h3>
+                    <p>End-to-end visibility into data pipelines with automated alerts and dashboards tracking pipeline health.</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Process Transformation: Before vs After</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div>
+                    <h4 style="color: #d32f2f; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #fce4ec; border-radius: 6px; text-align: center;">❌ Current Process (Before dbt)</h4>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Business Request</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Ad-hoc request via email/ticket</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Build in UI Tool</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">No-code ETL (Matillion, etc.) - drag & drop interface</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Manual Testing</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Run manually, check results in UI, ad-hoc validation</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Deploy to Prod</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Manual deployment, hope nothing breaks</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Troubleshoot Issues</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">45-60 minutes to debug, back & forth with business</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Manual Documentation</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Wiki, Excel sheets, outdated quickly</p>
+                        </div>
+                    </div>
+
+                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #c62828; font-weight: 600;">
+                        ⏱️ 2-4 weeks per feature
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: #2e7d32; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #e8f5e9; border-radius: 6px; text-align: center;">✅ Modern Process (With dbt)</h4>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Business Request</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Request via standardized intake process</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Code in dbt (SQL)</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Write transformation in SQL with version control (Git)</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Code Review & Tests</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Pull request review + automated tests run automatically</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Merge & Deploy</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Automated deployment via dbt Cloud - zero downtime</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Fast Debugging</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Interactive lineage graph + 2 clicks to root cause (5-20 min)</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Auto Documentation</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Docs auto-generated from code, always in sync</p>
+                        </div>
+                    </div>
+
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #2e7d32; font-weight: 600;">
+                        ⚡ 2-3 days per feature
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Process Improvements with dbt</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Process Area</th>
+                        <th>Current Approach</th>
+                        <th>With dbt</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Code Management</strong></td>
+                        <td>[Current approach]</td>
+                        <td>Version controlled SQL with Git</td>
+                        <td>Full audit trail, code reviews</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Testing</strong></td>
+                        <td>[Current approach]</td>
+                        <td>Automated tests (unique, not null, relationships, custom)</td>
+                        <td>Bugs caught before production</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documentation</strong></td>
+                        <td>[Current approach]</td>
+                        <td>Auto-generated, always up-to-date</td>
+                        <td>Single source of truth</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Collaboration</strong></td>
+                        <td>[Current approach]</td>
+                        <td>Pull request workflow, code review process</td>
+                        <td>Knowledge sharing, quality gates</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lineage Tracking</strong></td>
+                        <td>[Current approach]</td>
+                        <td>Automatic data lineage visualization</td>
+                        <td>Fast debugging, impact analysis</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Team Capabilities & Skills</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📚 Analytics Engineers</h3>
+                    <p>SQL-skilled professionals owning transformation layer. Work with Python for advanced analytics if needed.</p>
+                </div>
+                <div class="card">
+                    <h3>🔍 Data Analysts</h3>
+                    <p>Self-service access to semantic layer. Ability to create metrics and explore data without IT dependency.</p>
+                </div>
+                <div class="card">
+                    <h3>🛠️ Data Engineers</h3>
+                    <p>Focus on source systems, orchestration, and data infrastructure. dbt handles ELT transformation logic.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: DBT SOLUTION -->
+        <section id="solution">
+            <h2 class="section-title">🔧 dbt Solution Overview</h2>
+
+            <div class="highlight-box">
+                <h4>What is dbt?</h4>
+                <p>dbt (data build tool) enables analytics engineers to write, test, document and version-control data transformation code in SQL. Learn more at <a href="https://www.getdbt.com/" target="_blank" style="color: #fd6603; font-weight: 600;">getdbt.com</a></p>
+            </div>
+
+            <h3 class="subsection-title">Core dbt Capabilities</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📝 SQL Transformations</h3>
+                    <p>Write all transformations in simple SQL. dbt handles the complexity of dependencies and execution order.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Modular, reusable SQL code</li>
+                        <li>Jinja templating for flexibility</li>
+                        <li>Version-controlled transformations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🧪 Automated Testing</h3>
+                    <p>Built-in testing framework ensures data quality at every stage of the pipeline.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Generic tests (unique, not null, relationships)</li>
+                        <li>Custom dbt tests</li>
+                        <li>Data contracts and assertions</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📖 Auto-Generated Documentation</h3>
+                    <p>Create comprehensive data dictionaries that stay in sync with code.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Table descriptions and column metadata</li>
+                        <li>Automatic lineage visualization</li>
+                        <li>Deployed documentation portal</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Semantic Layer</h3>
+                    <p>Define business metrics once and reuse across all tools and teams.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Governed metrics definition</li>
+                        <li>Consistent business logic</li>
+                        <li>Self-service for business users</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🚀 Orchestration & Scheduling</h3>
+                    <p>dbt Cloud handles job scheduling, notifications, and performance monitoring.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Intelligent run scheduling</li>
+                        <li>Dependency-aware execution</li>
+                        <li>Built-in alerting</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🔍 Data Lineage & Observability</h3>
+                    <p>Understand data flow and troubleshoot issues with visual lineage.</p>
+                    <ul style="margin-left: 0; margin-top: 12px;">
+                        <li>Interactive lineage graphs</li>
+                        <li>Impact analysis</li>
+                        <li>Performance insights</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Key Benefits for [Company Name]</h3>
+            <div class="issue-box">
+                <strong>1. Velocity</strong><br>
+                Deliver features 2-3x faster with clear structure and reduced debugging time.<br><br>
+                <strong>2. Quality</strong><br>
+                Catch bugs before they reach production with automated testing integrated into workflow.<br><br>
+                <strong>3. Collaboration</strong><br>
+                Modern Git-based workflow enables code reviews and knowledge sharing across team.<br><br>
+                <strong>4. Cost Efficiency</strong><br>
+                Understand data dependencies and eliminate redundant calculations, reducing warehouse costs.<br><br>
+                <strong>5. Governance</strong><br>
+                Single source of truth for metrics with data contracts ensuring compliance.
+            </div>
+
+            <h3 class="subsection-title">Implementation Approach</h3>
+            <p style="margin-bottom: 20px;">dbt adopts a layered approach to data modeling aligned with medallion architecture:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Purpose</th>
+                        <th>Characteristics</th>
+                        <th>Users</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bronze</strong></td>
+                        <td>Raw data from sources</td>
+                        <td>Minimal transformation, 1:1 with source</td>
+                        <td>Data Engineers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Silver</strong></td>
+                        <td>Cleaned, deduplicated data</td>
+                        <td>Business rules applied, quality assured</td>
+                        <td>Analytics Engineers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gold</strong></td>
+                        <td>Business-ready datasets</td>
+                        <td>Optimized for analysis, metrics calculated</td>
+                        <td>Analysts, Business Users</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 6: ROI ASSESSMENT -->
+        <section id="roi">
+            <h2 class="section-title">💰 ROI Assessment</h2>
+
+            <h3 class="subsection-title">Financial Impact</h3>
+            <div class="roi-metrics">
+                <div class="roi-card">
+                    <div class="label">Infrastructure Cost Reduction</div>
+                    <div class="value">[XX]%</div>
+                    <div class="label">through optimization</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Team Productivity Gain</div>
+                    <div class="value">[XX]%</div>
+                    <div class="label">faster delivery</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Reduced Operational Risk</div>
+                    <div class="value">[XX]%</div>
+                    <div class="label">fewer data issues</div>
+                </div>
+                <div class="roi-card">
+                    <div class="label">Total 12-Month ROI</div>
+                    <div class="value">[XXX]%</div>
+                    <div class="label">return on investment</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Cost Savings Breakdown</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Cost Category</th>
+                        <th>Current State</th>
+                        <th>With dbt</th>
+                        <th>Annual Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Warehouse Costs</strong></td>
+                        <td>[Current amount]</td>
+                        <td>[Projected amount]</td>
+                        <td>[Savings]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Tools & Licenses</strong></td>
+                        <td>[Current amount]</td>
+                        <td>[Projected amount]</td>
+                        <td>[Savings]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manual Data Work / Workarounds</strong></td>
+                        <td>[Current amount]</td>
+                        <td>[Projected amount]</td>
+                        <td>[Savings]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Quality Issues (Opportunity Cost)</strong></td>
+                        <td>[Current amount]</td>
+                        <td>[Projected amount]</td>
+                        <td>[Savings]</td>
+                    </tr>
+                    <tr style="font-weight: bold; background: #f0f4ff;">
+                        <td>TOTAL ANNUAL SAVINGS</td>
+                        <td></td>
+                        <td></td>
+                        <td>[Total]</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Productivity Metrics</h3>
+            <div class="comparison-container">
+                <div class="before">
+                    <h4>Current State</h4>
+                    <div class="metric">
+                        <span class="metric-icon">⏱️</span>
+                        <span><strong>Feature Delivery:</strong> [X weeks]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">🐛</span>
+                        <span><strong>Bug Detection:</strong> [% in prod]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">⏰</span>
+                        <span><strong>Troubleshooting Time:</strong> [X hours/week]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">📚</span>
+                        <span><strong>Documentation Effort:</strong> [X hours/month]</span>
+                    </div>
+                </div>
+
+                <div class="after">
+                    <h4>With dbt (12-month target)</h4>
+                    <div class="metric">
+                        <span class="metric-icon">⚡</span>
+                        <span><strong>Feature Delivery:</strong> [X days/weeks]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">✓</span>
+                        <span><strong>Bug Detection:</strong> [% pre-prod]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">🚀</span>
+                        <span><strong>Troubleshooting Time:</strong> [X hours/week]</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">✅</span>
+                        <span><strong>Documentation Effort:</strong> [X hours/month]</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Investment Required</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>dbt Cloud License</h3>
+                    <p><strong>Cost:</strong> [Amount based on usage]</p>
+                    <p><strong>Duration:</strong> Annual subscription</p>
+                    <p><strong>Features:</strong> Orchestration, monitoring, IDE</p>
+                </div>
+                <div class="card">
+                    <h3>Implementation Services</h3>
+                    <p><strong>Cost:</strong> [Amount for implementation]</p>
+                    <p><strong>Duration:</strong> [Timeline] months</p>
+                    <p><strong>Includes:</strong> Setup, training, knowledge transfer</p>
+                </div>
+                <div class="card">
+                    <h3>Team Training & Enablement</h3>
+                    <p><strong>Cost:</strong> [Amount for training]</p>
+                    <p><strong>Duration:</strong> Ongoing (3-6 months primary)</p>
+                    <p><strong>Includes:</strong> Workshops, mentoring, certifications</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Payback Analysis</h3>
+            <div class="highlight-box">
+                <h4>Timeline to Positive ROI</h4>
+                <p style="font-size: 1.1em; margin: 15px 0;"><strong>Month 3:</strong> Foundation phase complete, first benefits realized (debugging time reduction, early cost savings)</p>
+                <p style="font-size: 1.1em; margin: 15px 0;"><strong>Month 6:</strong> Full adoption, measurable productivity gains across team</p>
+                <p style="font-size: 1.1em; margin: 15px 0;"><strong>Month 9-12:</strong> Full ROI achieved, compound benefits continue accumulating</p>
+            </div>
+        </section>
+
+        <!-- SECTION 7: CASE STUDIES -->
+        <section id="cases">
+            <h2 class="section-title">📚 Customer Stories & Case Studies</h2>
+
+            <p style="margin-bottom: 30px;">See how leading organizations transformed their data practices with dbt. Explore more case studies at <a href="https://www.getdbt.com/case-studies" target="_blank" style="color: #fd6603; font-weight: 600;">getdbt.com/case-studies</a></p>
+
+            <h3 class="subsection-title">Case Study 1: [Company Name]</h3>
+            <div class="case-study">
+                <h4>Industry | Company Size | Challenge</h4>
+                <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
+                <p style="margin-top: 12px;"><strong>Solution:</strong> [How dbt was implemented and adopted]</p>
+                <div class="metric-row">
+                    <div class="metric-item">
+                        <div class="label">Time to Value</div>
+                        <div class="value">[X weeks]</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">Productivity Gain</div>
+                        <div class="value">[X]%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Case Study 2: [Company Name]</h3>
+            <div class="case-study">
+                <h4>Industry | Company Size | Challenge</h4>
+                <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
+                <p style="margin-top: 12px;"><strong>Solution:</strong> [How dbt was implemented and adopted]</p>
+                <div class="metric-row">
+                    <div class="metric-item">
+                        <div class="label">Cost Reduction</div>
+                        <div class="value">[X]%</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">Quality Improvement</div>
+                        <div class="value">[X]%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Case Study 3: [Company Name]</h3>
+            <div class="case-study">
+                <h4>Industry | Company Size | Challenge</h4>
+                <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
+                <p style="margin-top: 12px;"><strong>Solution:</strong> [How dbt was implemented and adopted]</p>
+                <div class="metric-row">
+                    <div class="metric-item">
+                        <div class="label">Feature Velocity</div>
+                        <div class="value">[X]x</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">Team Scaling</div>
+                        <div class="value">[X]%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Key Success Patterns</h4>
+                <ul>
+                    <li>Strong executive sponsorship and clear business objectives</li>
+                    <li>Dedicated analytics engineering resources for implementation</li>
+                    <li>Phased rollout starting with critical use cases</li>
+                    <li>Comprehensive team training and enablement programs</li>
+                    <li>Early wins to build momentum and adoption</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 8: ROADMAP -->
+        <section id="roadmap">
+            <h2 class="section-title">🗺️ Implementation Roadmap</h2>
+
+            <h3 class="subsection-title">Phase 1: Foundation (Months 1-3)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 1: Discovery & Setup</h4>
+                        <p><strong>Goals:</strong> Establish baseline, set up infrastructure, train core team</p>
+                        <ul>
+                            <li>Audit current transformation code</li>
+                            <li>Set up dbt Cloud project and Git repository</li>
+                            <li>Kickoff training for analytics engineering team</li>
+                            <li>Define coding standards and project structure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 2: Pilot Implementation</h4>
+                        <p><strong>Goals:</strong> Build first dbt models, establish testing patterns, validate approach</p>
+                        <ul>
+                            <li>Migrate 1-2 critical use cases to dbt</li>
+                            <li>Implement testing framework</li>
+                            <li>Generate documentation</li>
+                            <li>Conduct internal reviews and iterate</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 3: Production & Optimization</h4>
+                        <p><strong>Goals:</strong> Deploy to production, measure impact, plan scaling</p>
+                        <ul>
+                            <li>Deploy pilot models to production</li>
+                            <li>Set up monitoring and alerting</li>
+                            <li>Measure productivity improvements</li>
+                            <li>Refine processes based on learnings</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Phase 2: Scaling (Months 4-6)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 4-5: Full Migration</h4>
+                        <p><strong>Goals:</strong> Migrate remaining transformation logic, expand team skills</p>
+                        <ul>
+                            <li>Migrate all active transformation logic to dbt</li>
+                            <li>Implement comprehensive testing suite</li>
+                            <li>Expand team training to broader analytics team</li>
+                            <li>Establish Git workflow best practices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 6: Optimization & Governance</h4>
+                        <p><strong>Goals:</strong> Optimize performance, implement governance, build team capacity</p>
+                        <ul>
+                            <li>Implement data contracts and SLAs</li>
+                            <li>Optimize warehouse costs and query performance</li>
+                            <li>Establish metrics governance structure</li>
+                            <li>Build internal dbt best practices guide</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Phase 3: Advanced Analytics (Months 7-12)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 7-9: Semantic Layer Implementation</h4>
+                        <p><strong>Goals:</strong> Enable business users, implement governed metrics</p>
+                        <ul>
+                            <li>Define core business metrics in semantic layer</li>
+                            <li>Enable business user self-service</li>
+                            <li>Integrate with BI and exploration tools</li>
+                            <li>Build metrics documentation and training</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Month 10-12: Advanced Use Cases</h4>
+                        <p><strong>Goals:</strong> Unlock advanced analytics capabilities</p>
+                        <ul>
+                            <li>Implement real-time data pipelines (if needed)</li>
+                            <li>Build advanced analytical models</li>
+                            <li>Establish ML-ready data infrastructure</li>
+                            <li>Plan next-phase innovations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Success Criteria & Metrics</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Timeline</th>
+                        <th>Success Criteria</th>
+                        <th>KPI Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Foundation</strong></td>
+                        <td>Month 3</td>
+                        <td>Core team trained, pilot in production</td>
+                        <td>[X]% of metrics live in dbt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scaling</strong></td>
+                        <td>Month 6</td>
+                        <td>Full migration complete, team adoption</td>
+                        <td>[X]% productivity gain</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Advanced</strong></td>
+                        <td>Month 12</td>
+                        <td>Semantic layer live, business adoption</td>
+                        <td>[X]% ROI achievement</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Key Success Factors</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎯 Executive Sponsorship</h3>
+                    <p>Clear executive support and commitment ensures resource allocation and removes organizational barriers.</p>
+                </div>
+                <div class="card">
+                    <h3>👥 Dedicated Team</h3>
+                    <p>Full-time analytics engineering resources focused on implementation and mentoring other team members.</p>
+                </div>
+                <div class="card">
+                    <h3>📚 Training & Enablement</h3>
+                    <p>Comprehensive training program covering dbt fundamentals, best practices, and team-specific patterns.</p>
+                </div>
+                <div class="card">
+                    <h3>🏆 Quick Wins</h3>
+                    <p>Early successes with high-impact projects build momentum and demonstrate value to skeptics.</p>
+                </div>
+                <div class="card">
+                    <h3>🔄 Iterative Approach</h3>
+                    <p>Phased rollout allows learning and course correction before full-scale deployment.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Measurement</h3>
+                    <p>Continuous tracking of KPIs ensures alignment with business objectives and demonstrates ROI.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Next Steps</h4>
+                <p>To move forward with dbt implementation:</p>
+                <ol style="margin-left: 20px; margin-top: 15px;">
+                    <li><strong>Stakeholder Alignment:</strong> Secure executive buy-in and cross-functional support</li>
+                    <li><strong>Team Preparation:</strong> Identify and allocate core team members</li>
+                    <li><strong>Detailed Planning:</strong> Develop comprehensive project plan with timelines and resources</li>
+                    <li><strong>Partnership:</strong> Engage dbt Labs and implementation partners for support</li>
+                    <li><strong>Kickoff:</strong> Schedule implementation kickoff meeting</li>
+                </ol>
+                <a href="https://www.getdbt.com/" target="_blank" class="btn">Learn More About dbt</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showSection(event, sectionId) {
+            event.preventDefault();
+            
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+                event.target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                const navLinks = document.querySelectorAll('nav a');
+                const activeLink = document.querySelector('nav a.active');
+                let currentIndex = Array.from(navLinks).indexOf(activeLink);
+                
+                if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % navLinks.length;
+                } else {
+                    currentIndex = (currentIndex - 1 + navLinks.length) % navLinks.length;
+                }
+                
+                navLinks[currentIndex].click();
+            }
+        });
+    </script>
+</body>
+</html>
