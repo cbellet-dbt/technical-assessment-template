@@ -421,16 +421,352 @@
             main { padding: 20px; }
             .comparison-container { grid-template-columns: 1fr; }
         }
+
+        /* COMPARISON */
+        .comparison-header { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .comparison-column { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .comparison-column.core { border-top: 4px solid #9e9e9e; }
+        .comparison-column.platform { border-top: 4px solid #fd6603; }
+        .comparison-column.verdict { border-top: 4px solid #2e7d32; background: linear-gradient(135deg, rgba(46, 125, 50, 0.05) 0%, rgba(46, 125, 50, 0.02) 100%); }
+        .comparison-column h3 { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .comparison-column.core h3 { color: #616161; }
+        .comparison-column.platform h3 { color: #fd6603; }
+        .comparison-column.verdict h3 { color: #2e7d32; }
+        .feature-item { padding: 15px; margin: 10px 0; border-radius: 8px; background: #f8f9fa; }
+        .feature-item.included { background: #e8f5e9; border-left: 3px solid #2e7d32; }
+        .feature-item.not-included { background: #fce4ec; border-left: 3px solid #d32f2f; }
+        .feature-item.partial { background: #fff3e0; border-left: 3px solid #ff9800; }
+
+        /* TCO TABLE */
+        .tco-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 10px; overflow: hidden; }
+        .tco-table th { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 15px; text-align: left; }
+        .tco-table td { padding: 15px; border-bottom: 1px solid #e0e0e0; }
+        .tco-table .savings { color: #2e7d32; font-weight: 600; }
+        .tco-table .cost { color: #d32f2f; }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        /* POV TRACKING STYLES */
+        .pov-tracking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pov-tracking-table thead {
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+        }
+
+        .pov-tracking-table th {
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .pov-tracking-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+
+        .pov-tracking-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .pov-tracking-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .status-pending {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-in-progress {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-validated {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-blocked {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #fd6603;
+        }
+
+        .owner-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #555;
+            border: 1px solid #e0e0e0;
+        }
+
+        .pov-section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .pov-section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .pov-section-icon.technical {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+
+        .pov-section-icon.business {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+        }
+
+        .pov-section-icon.stakeholders {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+        }
+
+        .pov-section-icon.timeline {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .kpi-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: border-color 0.3s ease;
+        }
+
+        .kpi-input:focus {
+            outline: none;
+            border-color: #fd6603;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            min-height: 60px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+            border-color: #fd6603;
+        }
+
+        .pov-progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .pov-progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .pov-summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #fd6603;
+        }
+
+        .pov-summary-card .count {
+            font-size: 2em;
+            font-weight: 700;
+            color: #fd6603;
+        }
+
+        .pov-summary-card .label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .editable-field {
+            background: #fafafa;
+            border: 1px dashed #ccc;
+            padding: 8px 12px;
+            border-radius: 4px;
+            min-height: 24px;
+        }
+
+        .editable-field:empty:before {
+            content: attr(data-placeholder);
+            color: #999;
+        }
+
+        /* SAVE/LOAD TOOLBAR */
+        .save-toolbar {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .save-btn, .load-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #fd6603 0%, #7b2de4 100%);
+            color: white;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 102, 3, 0.4);
+        }
+
+        .load-btn {
+            background: white;
+            color: #fd6603;
+            border: 2px solid #fd6603;
+        }
+
+        .load-btn:hover {
+            background: #fff3e0;
+            transform: translateY(-2px);
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.success {
+            background: #2e7d32;
+        }
+
+        .toast.error {
+            background: #c62828;
+        }
+
+        .toast.info {
+            background: #1565c0;
+        }
+
+        /* Customer name input in header */
+        .customer-name-input {
+            background: rgba(255,255,255,0.2);
+            border: 2px dashed rgba(255,255,255,0.5);
+            padding: 5px 15px;
+            border-radius: 6px;
+            color: white;
+            font-size: 1em;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .customer-name-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .customer-name-input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Customer Technical Assessment</h1>
-        <div class="subtitle">dbt Evaluation & Modern Data Platform</div>
+        <div class="subtitle">
+            <input type="text" id="customer-name" class="customer-name-input" placeholder="[Enter Customer Name]">
+        </div>
         <div class="meta">
             <span>📊 Comprehensive Analysis</span>
             <span>🔧 dbt Labs</span>
-            <span>📅 [Your Date]</span>
+            <span>📅 <input type="date" id="assessment-date" style="background: transparent; border: none; color: white; font-size: inherit;"></span>
         </div>
     </header>
 
@@ -439,11 +775,13 @@
             <li><a class="nav-link active" onclick="showSection(event, 'executive')"><span class="nav-icon">📋</span> Executive</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'context')"><span class="nav-icon">📍</span> Context</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'actual')"><span class="nav-icon">⚠️</span> Actual State</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'core-vs-platform')"><span class="nav-icon">⚖️</span> Core vs Platform</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'future')"><span class="nav-icon">🚀</span> Future State</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'solution')"><span class="nav-icon">🔧</span> Solution</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'roi')"><span class="nav-icon">💰</span> ROI</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'cases')"><span class="nav-icon">📚</span> Cases</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'roadmap')"><span class="nav-icon">🗺️</span> Roadmap</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'pov-tracking')"><span class="nav-icon">📋</span> POV Tracking</a></li>
         </ul>
     </nav>
 
@@ -639,6 +977,183 @@
                         <span><strong>Delivery Velocity:</strong> [Target speed]</span>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CORE VS PLATFORM -->
+        <section id="core-vs-platform">
+            <h2 class="section-title">⚖️ dbt Core vs dbt Platform - Analyse Détaillée</h2>
+
+            <div class="highlight-box">
+                <h4>Contexte [CLIENT]</h4>
+                <p>[CONTEXT CLIENT]</p>
+            </div>
+
+            <h3 class="subsection-title">Vue d'ensemble: Core vs Platform</h3>
+            
+            <div class="comparison-header">
+                <div class="comparison-column core">
+                    <h3>🔧 dbt Core (Open Source)</h3>
+                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Ce que vous utilisez aujourd'hui</p>
+                    
+                    <div class="feature-item included"><div class="feature-label">✓ Transformations SQL</div><div class="feature-detail">Modèles SQL avec Jinja templating</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Tests de base</div><div class="feature-detail">unique, not_null, accepted_values, relationships</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Documentation YAML</div><div class="feature-detail">Fichiers schema.yml pour décrire les modèles</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Lineage statique</div><div class="feature-detail">Via dbt docs generate (site statique)</div></div>
+                    <div class="feature-item not-included"><div class="feature-label">✗ IDE intégré</div><div class="feature-detail">Nécessite VS Code + extensions + config locale</div></div>
+                    <div class="feature-item not-included"><div class="feature-label">✗ Orchestration native</div><div class="feature-detail">Dépend d'Airflow, Prefect, cron jobs...</div></div>
+                    <div class="feature-item not-included"><div class="feature-label">✗ CI/CD natif</div><div class="feature-detail">Configuration manuelle GitHub Actions/GitLab CI</div></div>
+                </div>
+
+                <div class="comparison-column platform">
+                    <h3>🚀 dbt Platform (Cloud)</h3>
+                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Ce qui répond à vos enjeux</p>
+                    
+                    <div class="feature-item included"><div class="feature-label">✓ Tout dbt Core +</div><div class="feature-detail">100% compatible avec votre existant</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ IDE Web intégré</div><div class="feature-detail">Rien à installer, prêt à l'emploi en 2 minutes</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Canvas Visual (Drag & Drop)</div><div class="feature-detail">Interface no-code pour les métiers acculturés</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ dbt Explorer (Lineage interactif)</div><div class="feature-detail">Impact analysis en 2 clics, debugging 5-20 min</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Semantic Layer</div><div class="feature-detail">Métriques centralisées, Talk to Data via IA</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ CI/CD intégré</div><div class="feature-detail">Merge = Deploy, rapport de différentiel automatique</div></div>
+                    <div class="feature-item included"><div class="feature-label">✓ Jobs & Scheduling</div><div class="feature-detail">Orchestration native avec alerting</div></div>
+                </div>
+
+                <div class="comparison-column verdict">
+                    <h3>🎯 Impact pour [CLIENT]</h3>
+                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Réponse à vos pain points</p>
+                    
+                    <div class="feature-item included"><div class="feature-label">→ Sandbox Métier</div><div class="feature-detail">Canvas + IDE Web = exploration sans armada Git/CI/CD</div></div>
+                    <div class="feature-item included"><div class="feature-label">→ Industrialisation Rapide</div><div class="feature-detail">"Merge & Deploy" en 1 clic avec rapport de diff</div></div>
+                    <div class="feature-item included"><div class="feature-label">→ Scaling Équipes</div><div class="feature-detail">Démocratiser au-delà de l'équipe EDW2</div></div>
+                    <div class="feature-item included"><div class="feature-label">→ Semantic Layer = BRE</div><div class="feature-detail">Centralisation des règles de gestion (conversion currency, etc.)</div></div>
+                    <div class="feature-item included"><div class="feature-label">→ MCP Server</div><div class="feature-detail">Connexion IA/GenAI aux métadonnées et transformations</div></div>
+                    <div class="feature-item included"><div class="feature-label">→ Tests Facilités</div><div class="feature-detail">Profiling, suggestions de tests, exploration visuelle</div></div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Comparaison Détaillée par Catégorie</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Critère</th>
+                        <th style="width: 25%;">dbt Core (Actuel)</th>
+                        <th style="width: 25%;">dbt Platform</th>
+                        <th style="width: 30%;">Bénéfice [CLIENT]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>🖥️ Environnement de Dev</strong></td><td>VS Code local, config Python, gestion des versions</td><td>IDE Web intégré, rien à installer, accès instantané</td><td><strong>Les métiers acculturés peuvent contribuer sans setup IT</strong></td></tr>
+                    <tr><td><strong>🎨 Interface No-Code</strong></td><td>❌ Inexistant - SQL obligatoire</td><td>✅ Canvas drag & drop + prompting IA</td><td><strong>Sandbox métier pour exploration sans compétences SQL avancées</strong></td></tr>
+                    <tr><td><strong>📊 Lineage & Observabilité</strong></td><td>Site statique regénéré manuellement</td><td>dbt Explorer interactif, impact analysis en temps réel</td><td><strong>Debugging 5-20 min vs heures, anticipation des impacts</strong></td></tr>
+                    <tr><td><strong>🔄 CI/CD</strong></td><td>Configuration manuelle (GitHub Actions, Jenkins...)</td><td>Slim CI intégré, rapport de diff automatique V1→V2</td><td><strong>"Si quelqu'un crée une V2, je vois ce qui a changé et l'impact"</strong></td></tr>
+                    <tr><td><strong>📐 Semantic Layer</strong></td><td>❌ Non disponible</td><td>✅ Métriques centralisées, exposées via API</td><td><strong>Business Rule Engine centralisé (currency conversion, règles métier...)</strong></td></tr>
+                    <tr><td><strong>🤖 Intégration IA/GenAI</strong></td><td>❌ Non disponible</td><td>✅ MCP Server, Talk to Data, prompting</td><td><strong>Connexion aux outils GenAI avec contexte métadonnées</strong></td></tr>
+                    <tr><td><strong>🔧 Profiling & Suggestions</strong></td><td>❌ Non disponible</td><td>✅ Profiling colonnes, suggestions de jointures</td><td><strong>"Clic droit profiling sur une colonne, intégrité référentielle"</strong></td></tr>
+                    <tr><td><strong>⏰ Orchestration</strong></td><td>Airflow, Prefect, cron jobs (maintenance externe)</td><td>Jobs natifs avec scheduling intelligent et alerting</td><td><strong>Moins d'outillage à maintenir, orchestration unifiée</strong></td></tr>
+                    <tr><td><strong>📝 Documentation</strong></td><td>Manuelle dans schema.yml, site statique</td><td>Auto-générée, toujours synchronisée, publiée automatiquement</td><td><strong>Documentation "always in sync" vs disparités actuelles</strong></td></tr>
+                    <tr><td><strong>🔐 Gouvernance & RBAC</strong></td><td>Via Git permissions (limité)</td><td>RBAC natif, SSO, audit logs, environments séparés</td><td><strong>Contrôle fin des accès sandbox vs prod</strong></td></tr>
+                </tbody>
+            </table>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div>
+                    <h4 style="color: #d32f2f; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #fce4ec; border-radius: 6px; text-align: center;">❌ Avec dbt Core Seul</h4>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Métier veut explorer</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Besoin d'installer VS Code, Python, dbt CLI, configurer profiles.yml...</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Pas de sandbox isolé</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Risque d'impacter la prod, gestion manuelle des environnements</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Industrialisation manuelle</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Reprendre le code, réécrire en DV2, respécifier</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Process saccadé</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Allers-retours entre self-service et industrialisation</p>
+                        </div>
+                    </div>
+                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #c62828; font-weight: 600;">⏱️ Semaines de friction</div>
+                </div>
+
+                <div>
+                    <h4 style="color: #2e7d32; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #e8f5e9; border-radius: 6px; text-align: center;">✅ Avec dbt Platform</h4>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Métier ouvre le navigateur</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">IDE Web ou Canvas, rien à installer, prêt en 2 min</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Sandbox isolé automatique</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Dev environment séparé, explore sans risque pour la prod</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Merge = Deploy</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">CI/CD automatique, rapport de diff V1→V2, impacts visualisés</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <span style="font-weight: 600; color: #2c3e50;">Industrialisation fluide</span>
+                            </div>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Garde-fous + rapport d'impact = transition exploration → prod</p>
+                        </div>
+                    </div>
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #2e7d32; font-weight: 600;">⚡ Transition fluide jours → heures</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">TCO: Coût Total de Possession</h3>
+
+            <table class="tco-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Catégorie de Coût</th>
+                        <th style="width: 25%;">dbt Core (caché)</th>
+                        <th style="width: 25%;">dbt Platform</th>
+                        <th style="width: 20%;">Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Licence logicielle</strong></td><td>0€ (open source)</td><td>Abonnement annuel</td><td>Coût visible Platform</td></tr>
+                    <tr><td><strong>Infrastructure CI/CD</strong></td><td class="cost">GitHub Actions / Jenkins / GitLab CI (maintenance + compute)</td><td>Inclus</td><td class="savings">Économie infra</td></tr>
+                    <tr><td><strong>Orchestration</strong></td><td class="cost">Airflow / Prefect (setup, maintenance, monitoring)</td><td>Inclus</td><td class="savings">Économie ops</td></tr>
+                    <tr><td><strong>Setup poste développeur</strong></td><td class="cost">2-4h par développeur (Python, dbt CLI, profiles, extensions)</td><td>2 min (navigateur)</td><td class="savings">Économie onboarding</td></tr>
+                    <tr><td><strong>Formation équipes non-techniques</strong></td><td class="cost">Semaines (CLI, Git avancé)</td><td>Heures (UI intuitive)</td><td class="savings">Adoption accélérée</td></tr>
+                    <tr><td><strong>Debugging & troubleshooting</strong></td><td class="cost">45-60 min / incident (lineage statique)</td><td>5-20 min / incident (Explorer)</td><td class="savings">-60% temps debug</td></tr>
+                    <tr><td><strong>Documentation</strong></td><td class="cost">Effort manuel, souvent outdated</td><td>Auto-générée, always in sync</td><td class="savings">Fiabilité + temps</td></tr>
+                    <tr class="total-row"><td><strong>Total Cost of Ownership</strong></td><td>Coûts cachés significatifs (FTE, infrastructure, friction)</td><td>Coût prévisible, all-inclusive</td><td class="savings">ROI positif ~12 mois</td></tr>
+                </tbody>
+            </table>
+
+            <div class="verdict-box">
+                <h4>🎯 Verdict pour [CLIENT]</h4>
+                <p style="font-size: 1.1em;">dbt Platform répond précisément à vos enjeux : sandbox métier sans armada, industrialisation fluide, démocratisation au-delà de l'équipe EDW2, et Semantic Layer comme Business Rule Engine centralisé.</p>
             </div>
         </section>
 
@@ -862,65 +1377,6 @@
             <div class="highlight-box">
                 <h4>What is dbt?</h4>
                 <p>dbt (data build tool) enables analytics engineers to write, test, document and version-control data transformation code in SQL. Learn more at <a href="https://www.getdbt.com/" target="_blank" style="color: #fd6603; font-weight: 600;">getdbt.com</a></p>
-            </div>
-
-            <h3 class="subsection-title">dbt Value Pillars</h3>
-            <p style="margin-bottom: 20px; color: #666;">dbt delivers value across six strategic dimensions that address your key business needs:</p>
-            
-            <div class="card-grid">
-                <div class="card" style="border-top: 4px solid #fd6603;">
-                    <h3 style="color: #fd6603; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">⚡</span>
-                        Velocity
-                    </h3>
-                    <p><strong>Deliver features 2-3x faster</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Clear project structure, reusable models, and rapid feedback loops enable your team to build and deploy data products in days instead of weeks.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #061ee7;">
-                    <h3 style="color: #061ee7; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">✓</span>
-                        Quality
-                    </h3>
-                    <p><strong>Catch bugs before production</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Automated testing framework and data contracts ensure data quality at every step, reducing incidents and increasing stakeholder confidence.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #7b2de4;">
-                    <h3 style="color: #7b2de4; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">🤝</span>
-                        Collaboration
-                    </h3>
-                    <p><strong>Modern development practices</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Git-based workflows with code reviews enable knowledge sharing, quality gates, and professional software engineering practices for data.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #2e7d32;">
-                    <h3 style="color: #2e7d32; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">🔒</span>
-                        Governance
-                    </h3>
-                    <p><strong>Control with complete visibility</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Data lineage, version control, and semantic layer enable you to implement governance without slowing down analytics.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #ff9800;">
-                    <h3 style="color: #ff9800; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">💰</span>
-                        Cost Efficiency
-                    </h3>
-                    <p><strong>Optimize spend 30-50%</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Intelligent orchestration, lineage visibility, and unused model detection eliminate waste and optimize cloud spend.</p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #d32f2f;">
-                    <h3 style="color: #d32f2f; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 1.8em;">📊</span>
-                        Analytics Maturity
-                    </h3>
-                    <p><strong>Unlock advanced analytics</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Semantic layer and governed metrics enable business users to explore data independently, increasing adoption and insights.</p>
-                </div>
             </div>
 
             <h3 class="subsection-title">Core dbt Capabilities</h3>
@@ -1434,21 +1890,482 @@
                 <a href="https://www.getdbt.com/" target="_blank" class="btn">Learn More About dbt</a>
             </div>
         </section>
+
+        <!-- SECTION 9: POV TRACKING -->
+        <section id="pov-tracking">
+            <h2 class="section-title">📋 POV Tracking & Validation</h2>
+
+            <div class="highlight-box">
+                <h4>POV Objectives</h4>
+                <p>This section tracks the progress of the Proof of Value (POV) evaluation. The goal is to validate both technical capabilities and business value to build a comprehensive business case for dbt Platform adoption.</p>
+            </div>
+
+            <!-- POV Summary Dashboard -->
+            <h3 class="subsection-title">POV Progress Overview</h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 30px 0;">
+                <div class="pov-summary-card">
+                    <div class="count" id="tech-validated-count">0/0</div>
+                    <div class="label">Technical Validations</div>
+                    <div class="pov-progress-bar">
+                        <div class="pov-progress-fill" id="tech-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="pov-summary-card">
+                    <div class="count" id="business-validated-count">0/0</div>
+                    <div class="label">Business Validations</div>
+                    <div class="pov-progress-bar">
+                        <div class="pov-progress-fill" id="business-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="pov-summary-card">
+                    <div class="count" id="pov-start-date">[Start Date]</div>
+                    <div class="label">POV Start Date</div>
+                </div>
+                <div class="pov-summary-card">
+                    <div class="count" id="pov-end-date">[End Date]</div>
+                    <div class="label">Target End Date</div>
+                </div>
+            </div>
+
+            <!-- Stakeholders Section -->
+            <h3 class="subsection-title">POV Stakeholders & Owners</h3>
+            <div class="pov-section-header">
+                <div class="pov-section-icon stakeholders">👥</div>
+                <div>
+                    <strong>Key Contacts</strong>
+                    <p style="color: #666; font-size: 0.9em; margin: 0;">Identify owners for each workstream to ensure parallel progress</p>
+                </div>
+            </div>
+
+            <table class="pov-tracking-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Role / Workstream</th>
+                        <th style="width: 25%;">Owner Name</th>
+                        <th style="width: 25%;">Email / Contact</th>
+                        <th style="width: 25%;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🔧 Engineering Lead</strong><br><span style="color: #666; font-size: 0.85em;">Technical evaluation & implementation</span></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Name]"></div></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Email]"></div></td>
+                        <td><textarea class="notes-textarea" placeholder="Additional notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>📊 Analytics / BI Lead</strong><br><span style="color: #666; font-size: 0.85em;">Business use cases & metrics</span></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Name]"></div></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Email]"></div></td>
+                        <td><textarea class="notes-textarea" placeholder="Additional notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏗️ Architecture / Security</strong><br><span style="color: #666; font-size: 0.85em;">Infrastructure & compliance review</span></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Name]"></div></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Email]"></div></td>
+                        <td><textarea class="notes-textarea" placeholder="Additional notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>📋 Legal / Procurement</strong><br><span style="color: #666; font-size: 0.85em;">Contract & DPA discussions</span></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Name]"></div></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Email]"></div></td>
+                        <td><textarea class="notes-textarea" placeholder="Additional notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>💼 Executive Sponsor</strong><br><span style="color: #666; font-size: 0.85em;">Final decision maker</span></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Name]"></div></td>
+                        <td><div class="editable-field" contenteditable="true" data-placeholder="[Email]"></div></td>
+                        <td><textarea class="notes-textarea" placeholder="Additional notes..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Technical Validation Section -->
+            <h3 class="subsection-title">Technical Validation Criteria</h3>
+            <div class="pov-section-header">
+                <div class="pov-section-icon technical">🔧</div>
+                <div>
+                    <strong>Platform Evaluation</strong>
+                    <p style="color: #666; font-size: 0.9em; margin: 0;">Validate dbt Platform capabilities against technical requirements</p>
+                </div>
+            </div>
+
+            <table class="pov-tracking-table" id="technical-validation-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">✓</th>
+                        <th style="width: 25%;">Validation Criteria</th>
+                        <th style="width: 25%;">Description / Expected Outcome</th>
+                        <th style="width: 15%;">Owner</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 15%;">Notes / Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>Infrastructure Integration</strong></td>
+                        <td>Verify dbt Platform connects to existing infrastructure (Snowflake, Git, SSO/IAM)</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>dbt Core Project Import</strong></td>
+                        <td>Successfully import existing dbt Core projects into dbt Platform</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>End-to-End Pipeline</strong></td>
+                        <td>Implement complete data transformation workflow from source to BI without external tools</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>CI/CD Pipeline</strong></td>
+                        <td>Validate automated testing, code review, and deployment workflows</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>Orchestration (State-Aware)</strong></td>
+                        <td>Test intelligent orchestration with dbt Fusion - incremental runs based on data/code changes</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>Documentation & Catalog</strong></td>
+                        <td>Validate auto-generated documentation, lineage visualization, and data catalog features</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>Data Quality & Testing</strong></td>
+                        <td>Implement and validate data tests, freshness checks, and observability alerts</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>RBAC & Governance</strong></td>
+                        <td>Test role-based access control, permissions management, and governance features</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>User Adoption (IDE)</strong></td>
+                        <td>Evaluate ease of use for different personas (engineers, analysts, business users)</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="tech-checkbox"></div></td>
+                        <td><strong>Semantic Layer Integration</strong></td>
+                        <td>Test semantic layer connectivity with BI tools (Power BI, Tableau, etc.)</td>
+                        <td><span class="owner-badge">[Owner]</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Business Validation Section -->
+            <h3 class="subsection-title">Business Value Validation</h3>
+            <div class="pov-section-header">
+                <div class="pov-section-icon business">💰</div>
+                <div>
+                    <strong>ROI & Business Case</strong>
+                    <p style="color: #666; font-size: 0.9em; margin: 0;">Measure and validate business outcomes to build the business case</p>
+                </div>
+            </div>
+
+            <table class="pov-tracking-table" id="business-validation-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">✓</th>
+                        <th style="width: 20%;">KPI Category</th>
+                        <th style="width: 15%;">Baseline (Before)</th>
+                        <th style="width: 15%;">Target (After)</th>
+                        <th style="width: 15%;">Measured Result</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 15%;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>⏱️ Time to Deploy</strong><br><span style="color: #666; font-size: 0.85em;">Feature delivery speed</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 2-4 weeks"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 2-3 days"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>🔍 Troubleshooting Time</strong><br><span style="color: #666; font-size: 0.85em;">Time to identify root cause</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 45-60 min"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 5-20 min"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>🧪 Test Coverage</strong><br><span style="color: #666; font-size: 0.85em;">% of models with tests</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 10%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 80%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>📚 Documentation Coverage</strong><br><span style="color: #666; font-size: 0.85em;">% of models documented</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 20%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 100%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>💸 Data Warehouse Costs</strong><br><span style="color: #666; font-size: 0.85em;">Snowflake/DWH spend optimization</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., $X/month"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 20% reduction"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>⚡ Pipeline Execution Time</strong><br><span style="color: #666; font-size: 0.85em;">Job run duration</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 4 hours"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 1 hour"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>✅ Deployment Success Rate</strong><br><span style="color: #666; font-size: 0.85em;">% of deployments without rollback</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 70%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 95%"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>👥 Developer Productivity</strong><br><span style="color: #666; font-size: 0.85em;">Features shipped per sprint</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 2 features"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 5 features"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>🎓 Onboarding Time</strong><br><span style="color: #666; font-size: 0.85em;">Time for new team member productivity</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 3 months"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 2 weeks"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox" class="business-checkbox"></div></td>
+                        <td><strong>📉 Data Quality Incidents</strong><br><span style="color: #666; font-size: 0.85em;">Monthly data issues reported</span></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 15/month"></td>
+                        <td><input type="text" class="kpi-input" placeholder="e.g., 2/month"></td>
+                        <td><input type="text" class="kpi-input" placeholder="Measured value"></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- POV Timeline Section -->
+            <h3 class="subsection-title">POV Timeline & Milestones</h3>
+            <div class="pov-section-header">
+                <div class="pov-section-icon timeline">📅</div>
+                <div>
+                    <strong>Weekly Checkpoints</strong>
+                    <p style="color: #666; font-size: 0.9em; margin: 0;">Track progress through regular sync meetings</p>
+                </div>
+            </div>
+
+            <table class="pov-tracking-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">✓</th>
+                        <th style="width: 15%;">Week</th>
+                        <th style="width: 20%;">Date</th>
+                        <th style="width: 30%;">Milestone / Focus</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 15%;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox"></div></td>
+                        <td><strong>Week 0</strong></td>
+                        <td><input type="text" class="kpi-input" placeholder="[Date]"></td>
+                        <td>Kickoff: Environment setup, Git/Snowflake connections, baseline metrics</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox"></div></td>
+                        <td><strong>Week 1</strong></td>
+                        <td><input type="text" class="kpi-input" placeholder="[Date]"></td>
+                        <td>Import dbt Core projects, first pipeline runs, initial CI/CD setup</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox"></div></td>
+                        <td><strong>Week 2</strong></td>
+                        <td><input type="text" class="kpi-input" placeholder="[Date]"></td>
+                        <td>Data quality tests, documentation generation, orchestration testing</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox"></div></td>
+                        <td><strong>Week 3</strong></td>
+                        <td><input type="text" class="kpi-input" placeholder="[Date]"></td>
+                        <td>dbt Fusion activation, performance benchmarks, user adoption testing</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><div class="checkbox-wrapper"><input type="checkbox"></div></td>
+                        <td><strong>Week 4</strong></td>
+                        <td><input type="text" class="kpi-input" placeholder="[Date]"></td>
+                        <td>Final measurements, business case compilation, go/no-go decision</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><textarea class="notes-textarea" placeholder="Notes..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Technical Environment Setup -->
+            <h3 class="subsection-title">Technical Environment & Connectivity</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>☁️ Data Warehouse</h3>
+                    <p><strong>Platform:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Snowflake / BigQuery / Databricks]"></span></p>
+                    <p><strong>Environment:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Sandbox / Dev / Prod]"></span></p>
+                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
+                </div>
+                <div class="card">
+                    <h3>📂 Git Repository</h3>
+                    <p><strong>Platform:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[GitHub / GitLab / Azure DevOps]"></span></p>
+                    <p><strong>Type:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[SaaS / On-Prem]"></span></p>
+                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
+                </div>
+                <div class="card">
+                    <h3>🔐 Identity & Access</h3>
+                    <p><strong>SSO Provider:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Okta / Azure AD / etc.]"></span></p>
+                    <p><strong>Deployment:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Multi-tenant / Single-tenant]"></span></p>
+                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
+                </div>
+            </div>
+
+            <!-- Architecture & Security Considerations -->
+            <h3 class="subsection-title">Architecture & Security Checklist</h3>
+            <div class="issue-box">
+                <strong>Key Items to Validate:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>☐ Network connectivity (IP whitelisting, firewall rules)</li>
+                    <li>☐ Data residency & compliance requirements</li>
+                    <li>☐ Secret management (credentials storage)</li>
+                    <li>☐ SSO / SAML integration</li>
+                    <li>☐ Encryption requirements (at rest / in transit)</li>
+                    <li>☐ Audit logging capabilities</li>
+                    <li>☐ DPA (Data Processing Agreement) review</li>
+                </ul>
+            </div>
+
+            <!-- Decision Summary -->
+            <h3 class="subsection-title">POV Decision Summary</h3>
+            <div class="highlight-box">
+                <h4>Go / No-Go Criteria</h4>
+                <p>The POV will be considered successful if:</p>
+                <ol style="margin-left: 20px; margin-top: 15px;">
+                    <li>All critical technical validations pass (infrastructure, CI/CD, orchestration)</li>
+                    <li>Measurable improvement in at least 3 business KPIs</li>
+                    <li>Positive feedback from pilot users on ease of adoption</li>
+                    <li>No blocking security or compliance concerns</li>
+                    <li>Clear ROI demonstrated through business case metrics</li>
+                </ol>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px;">
+                <div class="before" style="border-left: 4px solid #fd6603;">
+                    <h4 style="color: #fd6603;">📝 Notes & Observations</h4>
+                    <textarea class="notes-textarea" style="min-height: 150px;" placeholder="Document key observations, blockers, and learnings throughout the POV..."></textarea>
+                </div>
+                <div class="after" style="border-left: 4px solid #2e7d32;">
+                    <h4 style="color: #2e7d32;">✅ Final Decision</h4>
+                    <p><strong>Decision Date:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Date]"></span></p>
+                    <p><strong>Decision:</strong> 
+                        <select style="padding: 8px; border-radius: 6px; border: 1px solid #e0e0e0; margin-top: 5px;">
+                            <option value="">-- Select --</option>
+                            <option value="go">✅ GO - Proceed with implementation</option>
+                            <option value="conditional">⚠️ CONDITIONAL - Requires additional validation</option>
+                            <option value="nogo">❌ NO-GO - Does not meet requirements</option>
+                        </select>
+                    </p>
+                    <p style="margin-top: 15px;"><strong>Rationale:</strong></p>
+                    <textarea class="notes-textarea" style="min-height: 80px;" placeholder="Document the reasoning behind the decision..."></textarea>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Save/Load Toolbar -->
+    <div class="save-toolbar">
+        <input type="file" id="load-file-input" class="hidden-input" accept=".json">
+        <button class="load-btn" onclick="document.getElementById('load-file-input').click()">
+            📂 Load Data
+        </button>
+        <button class="save-btn" onclick="exportData()">
+            💾 Save Data
+        </button>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+
     <script>
+        // ==================== NAVIGATION ====================
         function showSection(event, sectionId) {
             event.preventDefault();
             
-            // Hide all sections
             const sections = document.querySelectorAll('section');
             sections.forEach(section => section.classList.remove('active'));
             
-            // Remove active class from all nav links
             const navLinks = document.querySelectorAll('nav a');
             navLinks.forEach(link => link.classList.remove('active'));
             
-            // Show selected section
             const selectedSection = document.getElementById(sectionId);
             if (selectedSection) {
                 selectedSection.classList.add('active');
@@ -1457,7 +2374,7 @@
             }
         }
 
-        // Add keyboard navigation
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
                 const navLinks = document.querySelectorAll('nav a');
@@ -1471,6 +2388,422 @@
                 }
                 
                 navLinks[currentIndex].click();
+            }
+        });
+
+        // ==================== TOAST NOTIFICATIONS ====================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==================== DATA EXPORT ====================
+        function exportData() {
+            const data = collectAllData();
+            const customerName = document.getElementById('customer-name').value || 'customer';
+            const date = new Date().toISOString().split('T')[0];
+            const filename = `pov_${customerName.toLowerCase().replace(/\s+/g, '_')}_${date}.json`;
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast(`✅ Data saved to ${filename}`, 'success');
+        }
+
+        function collectAllData() {
+            const data = {
+                metadata: {
+                    version: '1.0',
+                    exportDate: new Date().toISOString(),
+                    customerName: document.getElementById('customer-name').value,
+                    assessmentDate: document.getElementById('assessment-date').value
+                },
+                stakeholders: [],
+                technicalValidation: [],
+                businessValidation: [],
+                timeline: [],
+                environment: {},
+                notes: {},
+                decision: {}
+            };
+
+            // Collect stakeholders
+            const stakeholderRows = document.querySelectorAll('#pov-tracking table:nth-of-type(1) tbody tr');
+            stakeholderRows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    data.stakeholders.push({
+                        role: cells[0].querySelector('strong')?.textContent || '',
+                        name: cells[1].querySelector('.editable-field')?.textContent || '',
+                        email: cells[2].querySelector('.editable-field')?.textContent || '',
+                        notes: cells[3].querySelector('textarea')?.value || ''
+                    });
+                }
+            });
+
+            // Collect technical validation
+            const techRows = document.querySelectorAll('#technical-validation-table tbody tr');
+            techRows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 6) {
+                    data.technicalValidation.push({
+                        checked: cells[0].querySelector('input[type="checkbox"]')?.checked || false,
+                        criteria: cells[1].querySelector('strong')?.textContent || '',
+                        description: cells[2].textContent.trim(),
+                        owner: cells[3].querySelector('.owner-badge')?.textContent || '',
+                        status: cells[4].querySelector('.status-badge')?.textContent || '',
+                        notes: cells[5].querySelector('textarea')?.value || ''
+                    });
+                }
+            });
+
+            // Collect business validation
+            const businessRows = document.querySelectorAll('#business-validation-table tbody tr');
+            businessRows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 7) {
+                    const inputs = cells[2].querySelector('input');
+                    data.businessValidation.push({
+                        checked: cells[0].querySelector('input[type="checkbox"]')?.checked || false,
+                        category: cells[1].querySelector('strong')?.textContent || '',
+                        baseline: cells[2].querySelector('input')?.value || '',
+                        target: cells[3].querySelector('input')?.value || '',
+                        measured: cells[4].querySelector('input')?.value || '',
+                        status: cells[5].querySelector('.status-badge')?.textContent || '',
+                        notes: cells[6].querySelector('textarea')?.value || ''
+                    });
+                }
+            });
+
+            // Collect timeline
+            const timelineTable = document.querySelectorAll('#pov-tracking table')[3];
+            if (timelineTable) {
+                const timelineRows = timelineTable.querySelectorAll('tbody tr');
+                timelineRows.forEach((row, index) => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 6) {
+                        data.timeline.push({
+                            checked: cells[0].querySelector('input[type="checkbox"]')?.checked || false,
+                            week: cells[1].querySelector('strong')?.textContent || '',
+                            date: cells[2].querySelector('input')?.value || '',
+                            milestone: cells[3].textContent.trim(),
+                            status: cells[4].querySelector('.status-badge')?.textContent || '',
+                            notes: cells[5].querySelector('textarea')?.value || ''
+                        });
+                    }
+                });
+            }
+
+            // Collect environment cards
+            const envCards = document.querySelectorAll('#pov-tracking .card-grid .card');
+            envCards.forEach((card, index) => {
+                const title = card.querySelector('h3')?.textContent || `card_${index}`;
+                const fields = card.querySelectorAll('.editable-field');
+                const key = title.replace(/[^\w]/g, '_').toLowerCase();
+                data.environment[key] = {};
+                fields.forEach((field, i) => {
+                    data.environment[key][`field_${i}`] = field.textContent || '';
+                });
+            });
+
+            // Collect notes and decision
+            const notesTextareas = document.querySelectorAll('#pov-tracking > div:last-of-type textarea');
+            if (notesTextareas.length >= 2) {
+                data.notes.observations = notesTextareas[0].value || '';
+                data.notes.rationale = notesTextareas[1].value || '';
+            }
+
+            const decisionSelect = document.querySelector('#pov-tracking select');
+            if (decisionSelect) {
+                data.decision.value = decisionSelect.value || '';
+            }
+
+            const decisionDate = document.querySelector('#pov-tracking > div:last-of-type .editable-field');
+            if (decisionDate) {
+                data.decision.date = decisionDate.textContent || '';
+            }
+
+            return data;
+        }
+
+        // ==================== DATA IMPORT ====================
+        document.getElementById('load-file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    loadAllData(data);
+                    showToast(`✅ Data loaded from ${file.name}`, 'success');
+                } catch (error) {
+                    showToast('❌ Error loading file: Invalid JSON format', 'error');
+                    console.error('Error parsing JSON:', error);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset input so same file can be loaded again
+            e.target.value = '';
+        });
+
+        function loadAllData(data) {
+            // Load metadata
+            if (data.metadata) {
+                if (data.metadata.customerName) {
+                    document.getElementById('customer-name').value = data.metadata.customerName;
+                }
+                if (data.metadata.assessmentDate) {
+                    document.getElementById('assessment-date').value = data.metadata.assessmentDate;
+                }
+            }
+
+            // Load stakeholders
+            if (data.stakeholders && data.stakeholders.length > 0) {
+                const stakeholderRows = document.querySelectorAll('#pov-tracking table:nth-of-type(1) tbody tr');
+                data.stakeholders.forEach((stakeholder, index) => {
+                    if (stakeholderRows[index]) {
+                        const cells = stakeholderRows[index].querySelectorAll('td');
+                        if (cells.length >= 4) {
+                            const nameField = cells[1].querySelector('.editable-field');
+                            const emailField = cells[2].querySelector('.editable-field');
+                            const notesField = cells[3].querySelector('textarea');
+                            
+                            if (nameField) nameField.textContent = stakeholder.name || '';
+                            if (emailField) emailField.textContent = stakeholder.email || '';
+                            if (notesField) notesField.value = stakeholder.notes || '';
+                        }
+                    }
+                });
+            }
+
+            // Load technical validation
+            if (data.technicalValidation && data.technicalValidation.length > 0) {
+                const techRows = document.querySelectorAll('#technical-validation-table tbody tr');
+                data.technicalValidation.forEach((item, index) => {
+                    if (techRows[index]) {
+                        const cells = techRows[index].querySelectorAll('td');
+                        if (cells.length >= 6) {
+                            const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                            const ownerBadge = cells[3].querySelector('.owner-badge');
+                            const statusBadge = cells[4].querySelector('.status-badge');
+                            const notesField = cells[5].querySelector('textarea');
+                            
+                            if (checkbox) checkbox.checked = item.checked || false;
+                            if (ownerBadge) ownerBadge.textContent = item.owner || '[Owner]';
+                            if (statusBadge) {
+                                statusBadge.textContent = item.status || 'Pending';
+                                updateStatusBadgeClass(statusBadge, item.status);
+                            }
+                            if (notesField) notesField.value = item.notes || '';
+                        }
+                    }
+                });
+            }
+
+            // Load business validation
+            if (data.businessValidation && data.businessValidation.length > 0) {
+                const businessRows = document.querySelectorAll('#business-validation-table tbody tr');
+                data.businessValidation.forEach((item, index) => {
+                    if (businessRows[index]) {
+                        const cells = businessRows[index].querySelectorAll('td');
+                        if (cells.length >= 7) {
+                            const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                            const baselineInput = cells[2].querySelector('input');
+                            const targetInput = cells[3].querySelector('input');
+                            const measuredInput = cells[4].querySelector('input');
+                            const statusBadge = cells[5].querySelector('.status-badge');
+                            const notesField = cells[6].querySelector('textarea');
+                            
+                            if (checkbox) checkbox.checked = item.checked || false;
+                            if (baselineInput) baselineInput.value = item.baseline || '';
+                            if (targetInput) targetInput.value = item.target || '';
+                            if (measuredInput) measuredInput.value = item.measured || '';
+                            if (statusBadge) {
+                                statusBadge.textContent = item.status || 'Pending';
+                                updateStatusBadgeClass(statusBadge, item.status);
+                            }
+                            if (notesField) notesField.value = item.notes || '';
+                        }
+                    }
+                });
+            }
+
+            // Load timeline
+            if (data.timeline && data.timeline.length > 0) {
+                const timelineTable = document.querySelectorAll('#pov-tracking table')[3];
+                if (timelineTable) {
+                    const timelineRows = timelineTable.querySelectorAll('tbody tr');
+                    data.timeline.forEach((item, index) => {
+                        if (timelineRows[index]) {
+                            const cells = timelineRows[index].querySelectorAll('td');
+                            if (cells.length >= 6) {
+                                const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                                const dateInput = cells[2].querySelector('input');
+                                const statusBadge = cells[4].querySelector('.status-badge');
+                                const notesField = cells[5].querySelector('textarea');
+                                
+                                if (checkbox) checkbox.checked = item.checked || false;
+                                if (dateInput) dateInput.value = item.date || '';
+                                if (statusBadge) {
+                                    statusBadge.textContent = item.status || 'Pending';
+                                    updateStatusBadgeClass(statusBadge, item.status);
+                                }
+                                if (notesField) notesField.value = item.notes || '';
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Load environment
+            if (data.environment) {
+                const envCards = document.querySelectorAll('#pov-tracking .card-grid .card');
+                envCards.forEach((card, index) => {
+                    const title = card.querySelector('h3')?.textContent || `card_${index}`;
+                    const key = title.replace(/[^\w]/g, '_').toLowerCase();
+                    if (data.environment[key]) {
+                        const fields = card.querySelectorAll('.editable-field');
+                        fields.forEach((field, i) => {
+                            if (data.environment[key][`field_${i}`]) {
+                                field.textContent = data.environment[key][`field_${i}`];
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Load notes and decision
+            if (data.notes) {
+                const notesTextareas = document.querySelectorAll('#pov-tracking > div:last-of-type textarea');
+                if (notesTextareas.length >= 2) {
+                    notesTextareas[0].value = data.notes.observations || '';
+                    notesTextareas[1].value = data.notes.rationale || '';
+                }
+            }
+
+            if (data.decision) {
+                const decisionSelect = document.querySelector('#pov-tracking select');
+                if (decisionSelect && data.decision.value) {
+                    decisionSelect.value = data.decision.value;
+                }
+                
+                const decisionDate = document.querySelector('#pov-tracking > div:last-of-type .editable-field');
+                if (decisionDate && data.decision.date) {
+                    decisionDate.textContent = data.decision.date;
+                }
+            }
+
+            // Update progress counters
+            updateProgressCounters();
+        }
+
+        function updateStatusBadgeClass(badge, status) {
+            badge.classList.remove('status-pending', 'status-in-progress', 'status-validated', 'status-blocked');
+            
+            const statusLower = (status || '').toLowerCase();
+            if (statusLower.includes('validated') || statusLower.includes('complete')) {
+                badge.classList.add('status-validated');
+            } else if (statusLower.includes('progress')) {
+                badge.classList.add('status-in-progress');
+            } else if (statusLower.includes('blocked')) {
+                badge.classList.add('status-blocked');
+            } else {
+                badge.classList.add('status-pending');
+            }
+        }
+
+        // ==================== PROGRESS TRACKING ====================
+        function updateProgressCounters() {
+            // Technical validation progress
+            const techCheckboxes = document.querySelectorAll('.tech-checkbox');
+            const techChecked = Array.from(techCheckboxes).filter(cb => cb.checked).length;
+            document.getElementById('tech-validated-count').textContent = `${techChecked}/${techCheckboxes.length}`;
+            document.getElementById('tech-progress').style.width = `${(techChecked / techCheckboxes.length) * 100}%`;
+
+            // Business validation progress
+            const businessCheckboxes = document.querySelectorAll('.business-checkbox');
+            const businessChecked = Array.from(businessCheckboxes).filter(cb => cb.checked).length;
+            document.getElementById('business-validated-count').textContent = `${businessChecked}/${businessCheckboxes.length}`;
+            document.getElementById('business-progress').style.width = `${(businessChecked / businessCheckboxes.length) * 100}%`;
+        }
+
+        // ==================== STATUS BADGE EDITING ====================
+        document.querySelectorAll('.status-badge').forEach(badge => {
+            badge.style.cursor = 'pointer';
+            badge.title = 'Click to change status';
+            
+            badge.addEventListener('click', function() {
+                const statuses = ['Pending', 'In Progress', 'Validated', 'Blocked'];
+                const currentText = this.textContent.trim();
+                let currentIndex = statuses.findIndex(s => currentText.includes(s));
+                currentIndex = (currentIndex + 1) % statuses.length;
+                
+                this.textContent = statuses[currentIndex];
+                updateStatusBadgeClass(this, statuses[currentIndex]);
+            });
+        });
+
+        // ==================== OWNER BADGE EDITING ====================
+        document.querySelectorAll('.owner-badge').forEach(badge => {
+            badge.style.cursor = 'pointer';
+            badge.title = 'Click to edit owner';
+            badge.contentEditable = true;
+            
+            badge.addEventListener('focus', function() {
+                if (this.textContent === '[Owner]') {
+                    this.textContent = '';
+                }
+            });
+            
+            badge.addEventListener('blur', function() {
+                if (this.textContent.trim() === '') {
+                    this.textContent = '[Owner]';
+                }
+            });
+        });
+
+        // ==================== CHECKBOX LISTENERS ====================
+        document.querySelectorAll('.tech-checkbox, .business-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgressCounters);
+        });
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('assessment-date').value = today;
+            
+            // Initialize progress counters
+            updateProgressCounters();
+        });
+
+        // ==================== KEYBOARD SHORTCUTS ====================
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                exportData();
+            }
+            
+            // Ctrl+O to open
+            if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
+                e.preventDefault();
+                document.getElementById('load-file-input').click();
             }
         });
     </script>
