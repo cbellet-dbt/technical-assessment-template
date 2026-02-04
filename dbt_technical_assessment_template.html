@@ -782,6 +782,7 @@
             <li><a class="nav-link" onclick="showSection(event, 'cases')"><span class="nav-icon">📚</span> Cases</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'roadmap')"><span class="nav-icon">🗺️</span> Roadmap</a></li>
             <li><a class="nav-link" onclick="showSection(event, 'pov-tracking')"><span class="nav-icon">📋</span> POV Tracking</a></li>
+            <li><a class="nav-link" onclick="showSection(event, 'your-team')"><span class="nav-icon">👥</span> Your Team</a></li>
         </ul>
     </nav>
 
@@ -792,7 +793,7 @@
 
             <div class="highlight-box">
                 <h4>Key Findings</h4>
-                <p>This assessment evaluates [Company Name]'s data platform against modern data stack best practices and identifies opportunities for transformation through dbt adoption.</p>
+                <p>This assessment evaluates [CUSTOMER]'s data platform against modern data stack best practices and identifies opportunities for transformation through dbt adoption.</p>
             </div>
 
             <div class="card-grid">
@@ -982,178 +983,137 @@
 
         <!-- SECTION 4: CORE VS PLATFORM -->
         <section id="core-vs-platform">
-            <h2 class="section-title">⚖️ dbt Core vs dbt Platform - Analyse Détaillée</h2>
+            <h2 class="section-title">⚖️ dbt Core vs dbt Platform - Detailed Analysis</h2>
 
             <div class="highlight-box">
-                <h4>Contexte [CLIENT]</h4>
-                <p>[CONTEXT CLIENT]</p>
+                <h4>[CUSTOMER] Context</h4>
+                <p>[CUSTOMER CONTEXT]</p>
             </div>
 
-            <h3 class="subsection-title">Vue d'ensemble: Core vs Platform</h3>
-            
-            <div class="comparison-header">
-                <div class="comparison-column core">
-                    <h3>🔧 dbt Core (Open Source)</h3>
-                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Ce que vous utilisez aujourd'hui</p>
-                    
-                    <div class="feature-item included"><div class="feature-label">✓ Transformations SQL</div><div class="feature-detail">Modèles SQL avec Jinja templating</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Tests de base</div><div class="feature-detail">unique, not_null, accepted_values, relationships</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Documentation YAML</div><div class="feature-detail">Fichiers schema.yml pour décrire les modèles</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Lineage statique</div><div class="feature-detail">Via dbt docs generate (site statique)</div></div>
-                    <div class="feature-item not-included"><div class="feature-label">✗ IDE intégré</div><div class="feature-detail">Nécessite VS Code + extensions + config locale</div></div>
-                    <div class="feature-item not-included"><div class="feature-label">✗ Orchestration native</div><div class="feature-detail">Dépend d'Airflow, Prefect, cron jobs...</div></div>
-                    <div class="feature-item not-included"><div class="feature-label">✗ CI/CD natif</div><div class="feature-detail">Configuration manuelle GitHub Actions/GitLab CI</div></div>
-                </div>
 
-                <div class="comparison-column platform">
-                    <h3>🚀 dbt Platform (Cloud)</h3>
-                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Ce qui répond à vos enjeux</p>
-                    
-                    <div class="feature-item included"><div class="feature-label">✓ Tout dbt Core +</div><div class="feature-detail">100% compatible avec votre existant</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ IDE Web intégré</div><div class="feature-detail">Rien à installer, prêt à l'emploi en 2 minutes</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Canvas Visual (Drag & Drop)</div><div class="feature-detail">Interface no-code pour les métiers acculturés</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ dbt Explorer (Lineage interactif)</div><div class="feature-detail">Impact analysis en 2 clics, debugging 5-20 min</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Semantic Layer</div><div class="feature-detail">Métriques centralisées, Talk to Data via IA</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ CI/CD intégré</div><div class="feature-detail">Merge = Deploy, rapport de différentiel automatique</div></div>
-                    <div class="feature-item included"><div class="feature-label">✓ Jobs & Scheduling</div><div class="feature-detail">Orchestration native avec alerting</div></div>
-                </div>
-
-                <div class="comparison-column verdict">
-                    <h3>🎯 Impact pour [CLIENT]</h3>
-                    <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">Réponse à vos pain points</p>
-                    
-                    <div class="feature-item included"><div class="feature-label">→ Sandbox Métier</div><div class="feature-detail">Canvas + IDE Web = exploration sans armada Git/CI/CD</div></div>
-                    <div class="feature-item included"><div class="feature-label">→ Industrialisation Rapide</div><div class="feature-detail">"Merge & Deploy" en 1 clic avec rapport de diff</div></div>
-                    <div class="feature-item included"><div class="feature-label">→ Scaling Équipes</div><div class="feature-detail">Démocratiser au-delà de l'équipe EDW2</div></div>
-                    <div class="feature-item included"><div class="feature-label">→ Semantic Layer = BRE</div><div class="feature-detail">Centralisation des règles de gestion (conversion currency, etc.)</div></div>
-                    <div class="feature-item included"><div class="feature-label">→ MCP Server</div><div class="feature-detail">Connexion IA/GenAI aux métadonnées et transformations</div></div>
-                    <div class="feature-item included"><div class="feature-label">→ Tests Facilités</div><div class="feature-detail">Profiling, suggestions de tests, exploration visuelle</div></div>
-                </div>
-            </div>
-
-            <h3 class="subsection-title">Comparaison Détaillée par Catégorie</h3>
+            <h3 class="subsection-title">Detailed Comparison by Category</h3>
 
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">Critère</th>
-                        <th style="width: 25%;">dbt Core (Actuel)</th>
+                        <th style="width: 20%;">Criteria</th>
+                        <th style="width: 25%;">dbt Core (Current)</th>
                         <th style="width: 25%;">dbt Platform</th>
-                        <th style="width: 30%;">Bénéfice [CLIENT]</th>
+                        <th style="width: 30%;">[CUSTOMER] Benefit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>🖥️ Environnement de Dev</strong></td><td>VS Code local, config Python, gestion des versions</td><td>IDE Web intégré, rien à installer, accès instantané</td><td><strong>Les métiers acculturés peuvent contribuer sans setup IT</strong></td></tr>
-                    <tr><td><strong>🎨 Interface No-Code</strong></td><td>❌ Inexistant - SQL obligatoire</td><td>✅ Canvas drag & drop + prompting IA</td><td><strong>Sandbox métier pour exploration sans compétences SQL avancées</strong></td></tr>
-                    <tr><td><strong>📊 Lineage & Observabilité</strong></td><td>Site statique regénéré manuellement</td><td>dbt Explorer interactif, impact analysis en temps réel</td><td><strong>Debugging 5-20 min vs heures, anticipation des impacts</strong></td></tr>
-                    <tr><td><strong>🔄 CI/CD</strong></td><td>Configuration manuelle (GitHub Actions, Jenkins...)</td><td>Slim CI intégré, rapport de diff automatique V1→V2</td><td><strong>"Si quelqu'un crée une V2, je vois ce qui a changé et l'impact"</strong></td></tr>
-                    <tr><td><strong>📐 Semantic Layer</strong></td><td>❌ Non disponible</td><td>✅ Métriques centralisées, exposées via API</td><td><strong>Business Rule Engine centralisé (currency conversion, règles métier...)</strong></td></tr>
-                    <tr><td><strong>🤖 Intégration IA/GenAI</strong></td><td>❌ Non disponible</td><td>✅ MCP Server, Talk to Data, prompting</td><td><strong>Connexion aux outils GenAI avec contexte métadonnées</strong></td></tr>
-                    <tr><td><strong>🔧 Profiling & Suggestions</strong></td><td>❌ Non disponible</td><td>✅ Profiling colonnes, suggestions de jointures</td><td><strong>"Clic droit profiling sur une colonne, intégrité référentielle"</strong></td></tr>
-                    <tr><td><strong>⏰ Orchestration</strong></td><td>Airflow, Prefect, cron jobs (maintenance externe)</td><td>Jobs natifs avec scheduling intelligent et alerting</td><td><strong>Moins d'outillage à maintenir, orchestration unifiée</strong></td></tr>
-                    <tr><td><strong>📝 Documentation</strong></td><td>Manuelle dans schema.yml, site statique</td><td>Auto-générée, toujours synchronisée, publiée automatiquement</td><td><strong>Documentation "always in sync" vs disparités actuelles</strong></td></tr>
-                    <tr><td><strong>🔐 Gouvernance & RBAC</strong></td><td>Via Git permissions (limité)</td><td>RBAC natif, SSO, audit logs, environments séparés</td><td><strong>Contrôle fin des accès sandbox vs prod</strong></td></tr>
+                    <tr><td><strong>🖥️ Development Environment</strong></td><td>Local VS Code, Python config, version management</td><td>Built-in Web IDE, nothing to install, instant access</td><td><strong>Business-savvy users can contribute without IT setup</strong></td></tr>
+                    <tr><td><strong>🎨 No-Code Interface</strong></td><td>❌ Non-existent - SQL required</td><td>✅ Drag & drop Canvas + AI prompting</td><td><strong>Business sandbox for exploration without advanced SQL skills</strong></td></tr>
+                    <tr><td><strong>📊 Lineage & Observability</strong></td><td>Manually regenerated static site</td><td>Interactive dbt Explorer, real-time impact analysis</td><td><strong>Debugging 5-20 min vs hours, anticipate impacts</strong></td></tr>
+                    <tr><td><strong>🔄 CI/CD</strong></td><td>Manual configuration (GitHub Actions, Jenkins...)</td><td>Built-in Slim CI, automatic V1→V2 diff report</td><td><strong>"If someone creates a V2, I see what changed and the impact"</strong></td></tr>
+                    <tr><td><strong>📐 Semantic Layer</strong></td><td>❌ Not available</td><td>✅ Centralized metrics, exposed via API</td><td><strong>Centralized Business Rule Engine (currency conversion, business rules...)</strong></td></tr>
+                    <tr><td><strong>🤖 AI/GenAI Integration</strong></td><td>❌ Not available</td><td>✅ MCP Server, Talk to Data, prompting</td><td><strong>Connect GenAI tools with metadata context</strong></td></tr>
+                    <tr><td><strong>🔧 Profiling & Suggestions</strong></td><td>❌ Not available</td><td>✅ Column profiling, join suggestions</td><td><strong>"Right-click profiling on a column, referential integrity"</strong></td></tr>
+                    <tr><td><strong>⏰ Orchestration</strong></td><td>Airflow, Prefect, cron jobs (external maintenance)</td><td>Native jobs with intelligent scheduling and alerting</td><td><strong>Less tooling to maintain, unified orchestration</strong></td></tr>
+                    <tr><td><strong>📝 Documentation</strong></td><td>Manual in schema.yml, static site</td><td>Auto-generated, always synchronized, auto-published</td><td><strong>"Always in sync" documentation vs current disparities</strong></td></tr>
+                    <tr><td><strong>🔐 Governance & RBAC</strong></td><td>Via Git permissions (limited)</td><td>Native RBAC, SSO, audit logs, separate environments</td><td><strong>Fine-grained access control sandbox vs prod</strong></td></tr>
                 </tbody>
             </table>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
                 <div>
-                    <h4 style="color: #d32f2f; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #fce4ec; border-radius: 6px; text-align: center;">❌ Avec dbt Core Seul</h4>
+                    <h4 style="color: #d32f2f; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #fce4ec; border-radius: 6px; text-align: center;">❌ With dbt Core Only</h4>
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Métier veut explorer</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Business user wants to explore</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Besoin d'installer VS Code, Python, dbt CLI, configurer profiles.yml...</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Need to install VS Code, Python, dbt CLI, configure profiles.yml...</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Pas de sandbox isolé</span>
+                                <span style="font-weight: 600; color: #2c3e50;">No isolated sandbox</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Risque d'impacter la prod, gestion manuelle des environnements</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Risk of impacting production, manual environment management</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Industrialisation manuelle</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Manual industrialization</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Reprendre le code, réécrire en DV2, respécifier</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Rework the code, rewrite to standards, re-specify</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #d32f2f; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Process saccadé</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Fragmented process</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Allers-retours entre self-service et industrialisation</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Back and forth between self-service and industrialization</p>
                         </div>
                     </div>
-                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #c62828; font-weight: 600;">⏱️ Semaines de friction</div>
+                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #c62828; font-weight: 600;">⏱️ Weeks of friction</div>
                 </div>
 
                 <div>
-                    <h4 style="color: #2e7d32; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #e8f5e9; border-radius: 6px; text-align: center;">✅ Avec dbt Platform</h4>
+                    <h4 style="color: #2e7d32; margin-bottom: 25px; font-size: 1.1em; padding: 15px; background: #e8f5e9; border-radius: 6px; text-align: center;">✅ With dbt Platform</h4>
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Métier ouvre le navigateur</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Business user opens browser</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">IDE Web ou Canvas, rien à installer, prêt en 2 min</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Web IDE or Canvas, nothing to install, ready in 2 min</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Sandbox isolé automatique</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Automatic isolated sandbox</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Dev environment séparé, explore sans risque pour la prod</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Separate dev environment, explore without prod risk</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
                                 <span style="font-weight: 600; color: #2c3e50;">Merge = Deploy</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">CI/CD automatique, rapport de diff V1→V2, impacts visualisés</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Automatic CI/CD, V1→V2 diff report, visualized impacts</p>
                         </div>
                         <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <div style="background: #2e7d32; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
-                                <span style="font-weight: 600; color: #2c3e50;">Industrialisation fluide</span>
+                                <span style="font-weight: 600; color: #2c3e50;">Seamless industrialization</span>
                             </div>
-                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Garde-fous + rapport d'impact = transition exploration → prod</p>
+                            <p style="color: #666; font-size: 0.9em; margin-left: 47px;">Guardrails + impact report = smooth exploration → prod transition</p>
                         </div>
                     </div>
-                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #2e7d32; font-weight: 600;">⚡ Transition fluide jours → heures</div>
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; color: #2e7d32; font-weight: 600;">⚡ Seamless transition days → hours</div>
                 </div>
             </div>
 
-            <h3 class="subsection-title">TCO: Coût Total de Possession</h3>
+            <h3 class="subsection-title">TCO: Total Cost of Ownership</h3>
 
             <table class="tco-table">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">Catégorie de Coût</th>
-                        <th style="width: 25%;">dbt Core (caché)</th>
+                        <th style="width: 30%;">Cost Category</th>
+                        <th style="width: 25%;">dbt Core (Hidden)</th>
                         <th style="width: 25%;">dbt Platform</th>
                         <th style="width: 20%;">Impact</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>Licence logicielle</strong></td><td>0€ (open source)</td><td>Abonnement annuel</td><td>Coût visible Platform</td></tr>
-                    <tr><td><strong>Infrastructure CI/CD</strong></td><td class="cost">GitHub Actions / Jenkins / GitLab CI (maintenance + compute)</td><td>Inclus</td><td class="savings">Économie infra</td></tr>
-                    <tr><td><strong>Orchestration</strong></td><td class="cost">Airflow / Prefect (setup, maintenance, monitoring)</td><td>Inclus</td><td class="savings">Économie ops</td></tr>
-                    <tr><td><strong>Setup poste développeur</strong></td><td class="cost">2-4h par développeur (Python, dbt CLI, profiles, extensions)</td><td>2 min (navigateur)</td><td class="savings">Économie onboarding</td></tr>
-                    <tr><td><strong>Formation équipes non-techniques</strong></td><td class="cost">Semaines (CLI, Git avancé)</td><td>Heures (UI intuitive)</td><td class="savings">Adoption accélérée</td></tr>
-                    <tr><td><strong>Debugging & troubleshooting</strong></td><td class="cost">45-60 min / incident (lineage statique)</td><td>5-20 min / incident (Explorer)</td><td class="savings">-60% temps debug</td></tr>
-                    <tr><td><strong>Documentation</strong></td><td class="cost">Effort manuel, souvent outdated</td><td>Auto-générée, always in sync</td><td class="savings">Fiabilité + temps</td></tr>
-                    <tr class="total-row"><td><strong>Total Cost of Ownership</strong></td><td>Coûts cachés significatifs (FTE, infrastructure, friction)</td><td>Coût prévisible, all-inclusive</td><td class="savings">ROI positif ~12 mois</td></tr>
+                    <tr><td><strong>Software License</strong></td><td>$0 (open source)</td><td>Annual subscription</td><td>Visible Platform cost</td></tr>
+                    <tr><td><strong>CI/CD Infrastructure</strong></td><td class="cost">GitHub Actions / Jenkins / GitLab CI (maintenance + compute)</td><td>Included</td><td class="savings">Infrastructure savings</td></tr>
+                    <tr><td><strong>Orchestration</strong></td><td class="cost">Airflow / Prefect (setup, maintenance, monitoring)</td><td>Included</td><td class="savings">Ops savings</td></tr>
+                    <tr><td><strong>Developer workstation setup</strong></td><td class="cost">2-4h per developer (Python, dbt CLI, profiles, extensions)</td><td>2 min (browser)</td><td class="savings">Onboarding savings</td></tr>
+                    <tr><td><strong>Non-technical team training</strong></td><td class="cost">Weeks (CLI, advanced Git)</td><td>Hours (intuitive UI)</td><td class="savings">Accelerated adoption</td></tr>
+                    <tr><td><strong>Debugging & troubleshooting</strong></td><td class="cost">45-60 min / incident (static lineage)</td><td>5-20 min / incident (Explorer)</td><td class="savings">-60% debug time</td></tr>
+                    <tr><td><strong>Documentation</strong></td><td class="cost">Manual effort, often outdated</td><td>Auto-generated, always in sync</td><td class="savings">Reliability + time</td></tr>
+                    <tr class="total-row"><td><strong>Total Cost of Ownership</strong></td><td>Significant hidden costs (FTE, infrastructure, friction)</td><td>Predictable, all-inclusive cost</td><td class="savings">Positive ROI ~12 months</td></tr>
                 </tbody>
             </table>
 
             <div class="verdict-box">
-                <h4>🎯 Verdict pour [CLIENT]</h4>
-                <p style="font-size: 1.1em;">dbt Platform répond précisément à vos enjeux : sandbox métier sans armada, industrialisation fluide, démocratisation au-delà de l'équipe EDW2, et Semantic Layer comme Business Rule Engine centralisé.</p>
+                <h4>🎯 Verdict for [CUSTOMER]</h4>
+                <p style="font-size: 1.1em;">dbt Platform precisely addresses your challenges: business sandbox without complexity, seamless industrialization, democratization beyond the core data team, and Semantic Layer as a centralized Business Rule Engine.</p>
             </div>
         </section>
 
@@ -1442,7 +1402,7 @@
                 </div>
             </div>
 
-            <h3 class="subsection-title">Key Benefits for [Company Name]</h3>
+            <h3 class="subsection-title">Key Benefits for [CUSTOMER]</h3>
             <div class="issue-box">
                 <strong>1. Velocity</strong><br>
                 Deliver features 2-3x faster with clear structure and reduced debugging time.<br><br>
@@ -1643,7 +1603,7 @@
 
             <p style="margin-bottom: 30px;">See how leading organizations transformed their data practices with dbt. Explore more case studies at <a href="https://www.getdbt.com/case-studies" target="_blank" style="color: #fd6603; font-weight: 600;">getdbt.com/case-studies</a></p>
 
-            <h3 class="subsection-title">Case Study 1: [Company Name]</h3>
+            <h3 class="subsection-title">Case Study 1: [CUSTOMER]</h3>
             <div class="case-study">
                 <h4>Industry | Company Size | Challenge</h4>
                 <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
@@ -1660,7 +1620,7 @@
                 </div>
             </div>
 
-            <h3 class="subsection-title">Case Study 2: [Company Name]</h3>
+            <h3 class="subsection-title">Case Study 2: [CUSTOMER]</h3>
             <div class="case-study">
                 <h4>Industry | Company Size | Challenge</h4>
                 <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
@@ -1677,7 +1637,7 @@
                 </div>
             </div>
 
-            <h3 class="subsection-title">Case Study 3: [Company Name]</h3>
+            <h3 class="subsection-title">Case Study 3: [CUSTOMER]</h3>
             <div class="case-study">
                 <h4>Industry | Company Size | Challenge</h4>
                 <p><strong>Situation:</strong> [Description of their initial challenge and context]</p>
@@ -2336,6 +2296,87 @@
                     </p>
                     <p style="margin-top: 15px;"><strong>Rationale:</strong></p>
                     <textarea class="notes-textarea" style="min-height: 80px;" placeholder="Document the reasoning behind the decision..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: YOUR TEAM -->
+        <section id="your-team">
+            <h2 class="section-title">👥 Your dbt Labs Team</h2>
+            
+            <div class="highlight-box" style="margin-bottom: 30px;">
+                <h4>Your Dedicated Team</h4>
+                <p>Your dbt Labs account team is here to support you throughout your evaluation and implementation journey. Don't hesitate to reach out with any questions.</p>
+            </div>
+
+            <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+                <!-- Sales Director Card -->
+                <div class="card" style="border-left: 4px solid #fd6603;">
+                    <h3 style="color: #fd6603; margin-bottom: 5px;">
+                        <input type="text" id="sd-name" placeholder="[Sales Director Name]" style="font-weight: bold; font-size: 1.1em; border: none; background: transparent; width: 100%; color: #2c3e50;">
+                    </h3>
+                    <p style="color: #fd6603; font-weight: 600; font-size: 0.95em; margin-bottom: 20px;">Sales Director (SD)</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">📧</span>
+                            <input type="email" id="sd-email" placeholder="email@dbtlabs.com" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">📱</span>
+                            <input type="tel" id="sd-phone" placeholder="+33 6 XX XX XX XX" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">💼</span>
+                            <input type="url" id="sd-linkedin" placeholder="linkedin.com/in/profile" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Architect Card -->
+                <div class="card" style="border-left: 4px solid #7b2de4;">
+                    <h3 style="color: #7b2de4; margin-bottom: 5px;">
+                        <input type="text" id="sa-name" placeholder="[Solution Architect Name]" style="font-weight: bold; font-size: 1.1em; border: none; background: transparent; width: 100%; color: #2c3e50;">
+                    </h3>
+                    <p style="color: #7b2de4; font-weight: 600; font-size: 0.95em; margin-bottom: 20px;">Solution Architect (SA)</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">📧</span>
+                            <input type="email" id="sa-email" placeholder="email@dbtlabs.com" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">📱</span>
+                            <input type="tel" id="sa-phone" placeholder="+33 6 XX XX XX XX" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.2em;">💼</span>
+                            <input type="url" id="sa-linkedin" placeholder="linkedin.com/in/profile" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources -->
+            <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, #fff5f0 0%, #f8f0ff 100%);">
+                <h3>📚 Additional Resources</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px;">
+                    <div>
+                        <h4 style="color: #fd6603; margin-bottom: 10px;">Documentation</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 8px;">📖 <a href="https://docs.getdbt.com" target="_blank" style="color: #666; text-decoration: none;">dbt Documentation</a></li>
+                            <li style="margin-bottom: 8px;">🎓 <a href="https://courses.getdbt.com" target="_blank" style="color: #666; text-decoration: none;">dbt Learn</a></li>
+                            <li style="margin-bottom: 8px;">💬 <a href="https://community.getdbt.com" target="_blank" style="color: #666; text-decoration: none;">dbt Community</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #7b2de4; margin-bottom: 10px;">Support</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 8px;">🎫 <a href="https://support.getdbt.com" target="_blank" style="color: #666; text-decoration: none;">Support Portal</a></li>
+                            <li style="margin-bottom: 8px;">📅 <a href="#" style="color: #666; text-decoration: none;">Schedule a Call</a></li>
+                            <li style="margin-bottom: 8px;">💡 <a href="https://www.getdbt.com/blog" target="_blank" style="color: #666; text-decoration: none;">dbt Blog</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
