@@ -1897,7 +1897,8 @@
                 </div>
             </div>
 
-            <table class="pov-tracking-table">
+            <!-- POV Stakeholders & Owners -->
+            <table class="pov-tracking-table" id="stakeholders-table">
                 <thead>
                     <tr>
                         <th style="width: 25%;">Role / Workstream</th>
@@ -2015,7 +2016,7 @@
                         <td><strong>Data Quality & Testing</strong></td>
                         <td>Implement and validate data tests, freshness checks, and observability alerts</td>
                         <td><span class="owner-badge">[Owner]</span></td>
-                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><span class="status-badge status-pending">Pending</td>
                         <td><textarea class="notes-textarea" placeholder="Observations..."></textarea></td>
                     </tr>
                     <tr>
@@ -2171,7 +2172,7 @@
                 </div>
             </div>
 
-            <table class="pov-tracking-table">
+            <table class="pov-tracking-table" id="pov-timeline-table">
                 <thead>
                     <tr>
                         <th style="width: 5%;">✓</th>
@@ -2226,44 +2227,6 @@
                 </tbody>
             </table>
 
-            <!-- Technical Environment Setup -->
-            <h3 class="subsection-title">Technical Environment & Connectivity</h3>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>☁️ Data Warehouse</h3>
-                    <p><strong>Platform:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Snowflake / BigQuery / Databricks]"></span></p>
-                    <p><strong>Environment:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Sandbox / Dev / Prod]"></span></p>
-                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
-                </div>
-                <div class="card">
-                    <h3>📂 Git Repository</h3>
-                    <p><strong>Platform:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[GitHub / GitLab / Azure DevOps]"></span></p>
-                    <p><strong>Type:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[SaaS / On-Prem]"></span></p>
-                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
-                </div>
-                <div class="card">
-                    <h3>🔐 Identity & Access</h3>
-                    <p><strong>SSO Provider:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Okta / Azure AD / etc.]"></span></p>
-                    <p><strong>Deployment:</strong> <span class="editable-field" contenteditable="true" data-placeholder="[Multi-tenant / Single-tenant]"></span></p>
-                    <p><strong>Connection Status:</strong> <span class="status-badge status-pending">Pending</span></p>
-                </div>
-            </div>
-
-            <!-- Architecture & Security Considerations -->
-            <h3 class="subsection-title">Architecture & Security Checklist</h3>
-            <div class="issue-box">
-                <strong>Key Items to Validate:</strong>
-                <ul style="margin-top: 10px;">
-                    <li>☐ Network connectivity (IP whitelisting, firewall rules)</li>
-                    <li>☐ Data residency & compliance requirements</li>
-                    <li>☐ Secret management (credentials storage)</li>
-                    <li>☐ SSO / SAML integration</li>
-                    <li>☐ Encryption requirements (at rest / in transit)</li>
-                    <li>☐ Audit logging capabilities</li>
-                    <li>☐ DPA (Data Processing Agreement) review</li>
-                </ul>
-            </div>
-
             <!-- Decision Summary -->
             <h3 class="subsection-title">POV Decision Summary</h3>
             <div class="highlight-box">
@@ -2278,7 +2241,7 @@
                 </ol>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px;" id="pov-decision-section">
                 <div class="before" style="border-left: 4px solid #fd6603;">
                     <h4 style="color: #fd6603;">📝 Notes & Observations</h4>
                     <textarea class="notes-textarea" style="min-height: 150px;" placeholder="Document key observations, blockers, and learnings throughout the POV..."></textarea>
@@ -2482,7 +2445,7 @@
             };
 
             // Collect stakeholders
-            const stakeholderRows = document.querySelectorAll('#pov-tracking table:nth-of-type(1) tbody tr');
+            const stakeholderRows = document.querySelectorAll('#stakeholders-table tbody tr');
             stakeholderRows.forEach((row, index) => {
                 const cells = row.querySelectorAll('td');
                 if (cells.length >= 4) {
@@ -2530,7 +2493,7 @@
             });
 
             // Collect timeline
-            const timelineTable = document.querySelectorAll('#pov-tracking table')[3];
+            const timelineTable = document.getElementById('pov-timeline-table');
             if (timelineTable) {
                 const timelineRows = timelineTable.querySelectorAll('tbody tr');
                 timelineRows.forEach((row, index) => {
@@ -2561,20 +2524,19 @@
             });
 
             // Collect notes and decision
-            const notesTextareas = document.querySelectorAll('#pov-tracking > div:last-of-type textarea');
-            if (notesTextareas.length >= 2) {
-                data.notes.observations = notesTextareas[0].value || '';
-                data.notes.rationale = notesTextareas[1].value || '';
-            }
+            const decisionContainer = document.getElementById('pov-decision-section');
+            if (decisionContainer) {
+                const notesTextareas = decisionContainer.querySelectorAll('textarea');
+                if (notesTextareas.length >= 2) {
+                    data.notes.observations = notesTextareas[0].value || '';
+                    data.notes.rationale = notesTextareas[1].value || '';
+                }
 
-            const decisionSelect = document.querySelector('#pov-tracking select');
-            if (decisionSelect) {
-                data.decision.value = decisionSelect.value || '';
-            }
+                const decisionSelect = decisionContainer.querySelector('select');
+                if (decisionSelect) data.decision.value = decisionSelect.value || '';
 
-            const decisionDate = document.querySelector('#pov-tracking > div:last-of-type .editable-field');
-            if (decisionDate) {
-                data.decision.date = decisionDate.textContent || '';
+                const decisionDate = decisionContainer.querySelector('.editable-field');
+                if (decisionDate) data.decision.date = decisionDate.textContent || '';
             }
 
             return data;
@@ -2615,7 +2577,7 @@
 
             // Load stakeholders
             if (data.stakeholders && data.stakeholders.length > 0) {
-                const stakeholderRows = document.querySelectorAll('#pov-tracking table:nth-of-type(1) tbody tr');
+                const stakeholderRows = document.querySelectorAll('#stakeholders-table tbody tr');
                 data.stakeholders.forEach((stakeholder, index) => {
                     if (stakeholderRows[index]) {
                         const cells = stakeholderRows[index].querySelectorAll('td');
@@ -2659,7 +2621,7 @@
             // Load business validation
             if (data.businessValidation && data.businessValidation.length > 0) {
                 const businessRows = document.querySelectorAll('#business-validation-table tbody tr');
-                data.businessValidation.forEach((item, index) => {
+                businessRows.forEach((item, index) => {
                     if (businessRows[index]) {
                         const cells = businessRows[index].querySelectorAll('td');
                         if (cells.length >= 7) {
@@ -2686,7 +2648,7 @@
 
             // Load timeline
             if (data.timeline && data.timeline.length > 0) {
-                const timelineTable = document.querySelectorAll('#pov-tracking table')[3];
+                const timelineTable = document.getElementById('pov-timeline-table');
                 if (timelineTable) {
                     const timelineRows = timelineTable.querySelectorAll('tbody tr');
                     data.timeline.forEach((item, index) => {
@@ -2730,22 +2692,24 @@
 
             // Load notes and decision
             if (data.notes) {
-                const notesTextareas = document.querySelectorAll('#pov-tracking > div:last-of-type textarea');
-                if (notesTextareas.length >= 2) {
-                    notesTextareas[0].value = data.notes.observations || '';
-                    notesTextareas[1].value = data.notes.rationale || '';
+                const decisionContainer = document.getElementById('pov-decision-section');
+                if (decisionContainer) {
+                    const notesTextareas = decisionContainer.querySelectorAll('textarea');
+                    if (notesTextareas.length >= 2) {
+                        notesTextareas[0].value = data.notes.observations || '';
+                        notesTextareas[1].value = data.notes.rationale || '';
+                    }
                 }
             }
 
             if (data.decision) {
-                const decisionSelect = document.querySelector('#pov-tracking select');
-                if (decisionSelect && data.decision.value) {
-                    decisionSelect.value = data.decision.value;
-                }
-                
-                const decisionDate = document.querySelector('#pov-tracking > div:last-of-type .editable-field');
-                if (decisionDate && data.decision.date) {
-                    decisionDate.textContent = data.decision.date;
+                const decisionContainer = document.getElementById('pov-decision-section');
+                if (decisionContainer) {
+                    const decisionSelect = decisionContainer.querySelector('select');
+                    if (decisionSelect && data.decision.value) decisionSelect.value = data.decision.value;
+
+                    const decisionDate = decisionContainer.querySelector('.editable-field');
+                    if (decisionDate && data.decision.date) decisionDate.textContent = data.decision.date;
                 }
             }
 
@@ -2807,7 +2771,7 @@
             
             badge.addEventListener('focus', function() {
                 if (this.textContent === '[Owner]') {
-                    this.textContent = '';
+                                       this.textContent = '';
                 }
             });
             
